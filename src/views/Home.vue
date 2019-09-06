@@ -14,7 +14,11 @@
 
     <h2 v-show="counter > 0">{{counter}}</h2>
 
-    <StartButton @click.native="blinkLogoAndRedirect" title="Clique aqui para Jogar"></StartButton>
+    <StartButton
+      @click.native="blinkLogoAndRedirect"
+      v-show="!(counter > 0)"
+      title="Clique aqui para Jogar"
+    ></StartButton>
 
     <!-- <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/> -->
   </div>
@@ -43,7 +47,7 @@ export default class Home extends Vue {
   redirectToGameMenu({ time = 3 }) {
     this.counter = time;
     let interval = setInterval(() => {
-      if (this.counter-- === 0) {
+      if (--this.counter === 0) {
         this.$router.push("menu");
         clearInterval(interval);
       }
@@ -58,8 +62,8 @@ export default class Home extends Vue {
 
     setTimeout(() => {
       this.logoEyes = ":";
-      this.isLogoBlinking = false;
-    }, 600);
+      // this.isLogoBlinking = false;
+    }, 700);
   }
 
   blinkLogoAndRedirect(): void {

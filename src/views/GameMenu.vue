@@ -19,7 +19,7 @@ import StartButton from "@/components/StartButton.vue";
   }
 })
 export default class Home extends Vue {
-  logo: string = ":Blink";
+  logo: string = ":B";
   constructor() {
     super();
   }
