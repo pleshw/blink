@@ -12,7 +12,8 @@ class GameManager {
 
     materials: Array<String> = new Array<String>();
 
-    rounds: Stack<Rounds> = new Stack<Rounds>();
+    // guarda as tarefas de cada rodada da partida
+    rounds: Stack<Task> = new Stack<Task>();
 
     public addMaterial(material: Array<string>): void {
         this.materials = [...material];
@@ -27,7 +28,6 @@ class GameManager {
         this.setupRounds();
     }
 
-    public getRandomAvailableQuestion(): task;
 
 }
 
