@@ -7,10 +7,10 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import { Emit, Prop, Watch } from "vue-property-decorator";
+import { Prop } from "vue-property-decorator";
 
 @Component({})
-export default class Home extends Vue {
+export default class StartButton extends Vue {
   @Prop({ default: "Select" }) title!: string;
 }
 </script>
@@ -20,10 +20,12 @@ export default class Home extends Vue {
   //   background-color: rgb(82, 17, 82);
   background-color: transparent;
 
-  padding: 1rem 2rem;
+  padding: 0.8rem 2rem;
 
-  border: 0.09rem solid rgb(82, 17, 82);
-  border-radius: 0.1rem;
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5) !important;
+
+  border: 1px solid rgb(82, 17, 82);
+  border-radius: 25px;
 
   //   color: white;
   color: rgb(82, 17, 82);

@@ -1,24 +1,29 @@
 <template>
   <div class="home">
-    <div style="text-align: center;">
-      <h1>Bem vindo ao</h1>
-      <div id="logo-container">
-        <div id="logo-eye-container" :class="{'active': isLogoBlinking}">
-          <h1>{{ logoEyes }}</h1>
-        </div>
-        <div id="logo-name-container" :class="{'active': isLogoBlinking}">
-          <h1>Blink</h1>
-        </div>
+    <div id="logo-container">
+      <div id="logo-eye-container" :class="{'active': isLogoBlinking}">
+        <h1>{{ logoEyes }}</h1>
+      </div>
+      <div id="logo-name-container" :class="{'active': isLogoBlinking}">
+        <h1>Blink</h1>
       </div>
     </div>
 
-    <h2 v-show="counter > 0">{{counter}}</h2>
+    <div style=" margin: 5rem 0;">
+      <div style="text-align: center;margin: 5rem 0;">
+        <img src="@/assets/logo.png" alt srcset />
+      </div>
 
-    <StartButton
-      @click.native="blinkLogoAndRedirect"
-      v-show="!(counter > 0)"
-      title="Clique aqui para Jogar"
-    ></StartButton>
+      <h2 v-show="counter > 0">{{counter}}</h2>
+
+      <StartButton
+        @click.native="blinkLogoAndRedirect"
+        v-show="!(counter > 0)"
+        title="Clique aqui para Jogar"
+      ></StartButton>
+
+      <StartButton @click.native="blinkLogoAndRedirect" v-show="!(counter > 0)" title="Sobre ..."></StartButton>
+    </div>
 
     <!-- <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/> -->
   </div>
@@ -30,6 +35,11 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 // Components
 import StartButton from "@/components/StartButton.vue";
 
+// Includes
+import { GameManager } from "@/includes/GameManager.ts";
+
+Vue.prototype.$GameManager = new GameManager();
+
 @Component({
   components: {
     StartButton
@@ -40,30 +50,47 @@ export default class Home extends Vue {
   isLogoBlinking: boolean = false;
   counter: number = 0;
 
+  emotes: Array<string> = ["(", "v", "3", "#", "p", "D"];
+
   constructor() {
     super();
+  }
+
+  redirectToGameMenuWithCallback({ time = 3 }) {
+    this.counter = time;
+    let interval = setInterval(() => {
+      if (--this.counter === 0) {
+        this.$router.push("jogadores");
+        clearInterval(interval);
+      }
+    }, 1000);
   }
 
   redirectToGameMenu({ time = 3 }) {
     this.counter = time;
     let interval = setInterval(() => {
       if (--this.counter === 0) {
-        this.$router.push("menu");
+        this.$router.push("jogadores");
         clearInterval(interval);
       }
     }, 1000);
   }
 
   blinkLogo(): void {
-    if (this.logoEyes == ":") {
+    setTimeout(() => {
+      if (this.logoEyes == ":") {
+        this.isLogoBlinking = true;
+      }
+    }, 1200);
+
+    setTimeout(() => {
       this.logoEyes = ";";
-      this.isLogoBlinking = true;
-    }
+    }, 2100);
 
     setTimeout(() => {
       this.logoEyes = ":";
       // this.isLogoBlinking = false;
-    }, 700);
+    }, 2600);
   }
 
   blinkLogoAndRedirect(): void {
@@ -74,10 +101,25 @@ export default class Home extends Vue {
 </script>
 
 <style lang="scss">
+.StartButton {
+  margin: 0.3rem 0 !important;
+}
+
 #logo-container {
   display: flex;
+  margin: 3rem 0;
   justify-content: center;
   align-items: center;
+  text-align: center;
+
+  user-select: none !important;
+  color: #555;
+
+  padding: 0.2rem 2rem;
+
+  border-radius: 18px;
+
+  background: orange;
 }
 
 #logo-name-container {
@@ -97,7 +139,7 @@ export default class Home extends Vue {
 #logo-name-container.active::first-letter {
   font-size: 36px;
   letter-spacing: 25px;
-  transition: all 0.2s ease;
+  transition: all 0.6s ease;
 }
 
 #logo-eye-container.active {

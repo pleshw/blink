@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import GameMenu from './views/GameMenu.vue'
+import PlayerSelection from './views/PlayerSelection.vue'
 
 Vue.use(Router)
 
@@ -15,9 +15,9 @@ export default new Router({
       component: Home
     },
     {
-      path: '/menu',
-      name: 'menu',
-      component: GameMenu
+      path: '/jogadores',
+      name: 'jogadores',
+      component: PlayerSelection
     },
     // {
     //   path: '/about',

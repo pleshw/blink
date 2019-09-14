@@ -8,12 +8,20 @@
   </div>
 </template>
 
+
 <style lang="scss">
+$base-color: rgba(30, 113, 104, 1);
+
 #app {
+  background: linear-gradient(
+    to top,
+    $base-color 7%,
+    rgba(140, 222, 224, 0.4) 95%
+  );
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 95vh;
+  height: 100vh;
   text-align: center;
   color: #2c3e50;
   display: flex;
