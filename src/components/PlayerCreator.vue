@@ -6,12 +6,7 @@
     >
       <div class="row justify-content-center">
         <!-- Seta pra esquerda -->
-        <img
-          :src="require('@/assets/logo.png')"
-          class="card-img"
-          alt="..."
-          v-on:click.self="makePlayer"
-        />
+        <img :src="player.picture" class="card-img" alt="..." v-on:click.self="makePlayer" />
         <!-- Seta pra direita -->
       </div>
 
@@ -57,19 +52,19 @@ export default class PlayerCreator extends Vue {
 
   player: Player = new Player();
 
-  playerPicture: File = require("@/assets/logo.png");
+  @Prop({})
+  img!: File;
 
   constructor() {
     super();
     this.player.name = "@Jogador" + this.playerID;
+    this.player.picture = this.img;
     this.player.id = this.playerID;
   }
 
   @Emit("add-player")
   makePlayer(): Player {
     this.player.confirmed = !this.player.confirmed;
-
-    this.player.picture = this.playerPicture;
 
     return this.player;
   }
@@ -121,7 +116,7 @@ input {
 }
 
 .player-creator-card .card-img {
-  padding: 2rem !important;
+  padding: 3.5rem !important;
   border-radius: 100vh;
   width: 13rem;
   height: 13rem;

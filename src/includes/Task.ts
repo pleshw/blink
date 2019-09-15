@@ -5,23 +5,28 @@ enum Categories {
 abstract class Task {
     title!: string;
     description!: string;
+
+    players!: number;
+
     category!: Array<string>;
     materials!: Array<string>;
 
-    constructor(title: string, description: string) {
+    constructor(title: string, players: number, description?: string, ) {
         this.title = title;
-        this.description = description;
+        this.description = description || "";
+
+        this.players = players || 1;
     }
 
     abstract init(): void;
 }
 
-class TaskWithTime extends Task {
+abstract class TaskWithTime extends Task {
     time!: number;
     counter: number = -1;
 
-    constructor(title: string, description: string, time: number) {
-        super(title, description);
+    constructor(title: string, time: number, players?: number, description?: string, ) {
+        super(title, players || 1, description);
         this.time = time;
     }
 
@@ -29,13 +34,15 @@ class TaskWithTime extends Task {
         if (this.counter != -1) return;
 
 
-        let counter = this.time;
+        this.counter = this.time;
 
         let v = setInterval(() => {
-            if (counter <= 0) {
+            console.log(this.counter);
+            if (this.counter <= 0) {
+
                 clearInterval(v);
             }
-            counter -= 1;
+            this.counter -= 1;
         }, 1000);
     }
 }

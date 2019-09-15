@@ -30,9 +30,9 @@ export default class StartButton extends Vue {
   //   color: white;
   color: #eee;
 
-  font-style: oblique;
   font-weight: 600;
   font-size: 0.9rem;
+  text-transform: uppercase;
 
   &:active {
     outline: none;

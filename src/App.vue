@@ -33,6 +33,7 @@ $bg-player-selector: rgba(83, 163, 153, 1);
   justify-content: center;
   text-align: center;
   font-family: "Varela Round", sans-serif;
+  user-select: none !important;
 }
 #nav {
   padding: 30px;

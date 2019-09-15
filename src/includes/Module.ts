@@ -5,7 +5,8 @@ class Module {
     taskList!: Set<Task>;
 
     constructor(name: string, ...tasks: Task[]) {
-        
+        this.name = name;
+        this.taskList = new Set<Task>([...tasks]);
     }
 }
 

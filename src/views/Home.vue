@@ -1,16 +1,15 @@
 <template>
   <div class="home justify-content-center row">
-    <div id="logo-container" class="center-align col-12">
-      <div id="logo-eye-container" :class="{'active': isLogoBlinking}">{{ logoEyes }}</div>
-      <div id="logo-name-container" :class="{'active': isLogoBlinking}">Blink</div>
+    <div id="logo-container" class="center-align">
+      <img src="@/assets/logo.png" class="img-fluid" />
     </div>
 
     <div class="col-12" style="margin-top:5rem;">
       <div style="text-align: center;">
-        <img src="@/assets/logo.png" alt srcset />
+        <!-- <img src="@/assets/logo.png" alt srcset /> -->
       </div>
 
-      <h2 v-show="counter > 0">{{counter}}</h2>
+      <h3 class="counter" v-show="counter > 0">{{counter}}</h3>
 
       <StartButton
         style="margin-top: 6.2rem !important;"
@@ -39,6 +38,7 @@ import StartButton from "@/components/StartButton.vue";
 
 // Includes
 import { GameManager } from "@/includes/GameManager.ts";
+import { Mimica } from "@/includes/GameTasks.ts";
 
 Vue.prototype.$GameManager = new GameManager();
 
@@ -54,6 +54,12 @@ export default class Home extends Vue {
 
   constructor() {
     super();
+
+    // let m = new Mimica();
+    // console.log(m.title);
+    // console.log("Você pode ser: " + m.canBe);
+    // console.log("Você é: " + m.reallyIs);
+    // m.init();
   }
 
   redirectToGameMenuWithCallback({ time = 3 }) {
@@ -104,6 +110,11 @@ export default class Home extends Vue {
 @import url("https://fonts.googleapis.com/css?family=Varela+Round&display=swap");
 
 $sign-color: rgba(249, 128, 128, 1);
+$advice-font-color: rgba(209, 90, 90, 1);
+
+.counter {
+  color: $advice-font-color;
+}
 
 .StartButton {
   margin: 0.3rem 0 !important;
@@ -126,13 +137,17 @@ $sign-color: rgba(249, 128, 128, 1);
 
   color: #f2f2f2;
 
-  padding: 0.58rem 5rem !important;
-
-  max-width: 8rem;
+  max-width: 10rem;
 
   border-radius: 10px;
 
   background: $sign-color;
+
+  padding: 0 1rem;
+
+  img {
+    margin: 0.58rem 0 !important;
+  }
 }
 
 #logo-name-container {
