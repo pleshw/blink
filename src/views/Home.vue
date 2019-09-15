@@ -1,28 +1,30 @@
 <template>
-  <div class="home">
-    <div id="logo-container">
-      <div id="logo-eye-container" :class="{'active': isLogoBlinking}">
-        <h1>{{ logoEyes }}</h1>
-      </div>
-      <div id="logo-name-container" :class="{'active': isLogoBlinking}">
-        <h1>Blink</h1>
-      </div>
+  <div class="home justify-content-center row">
+    <div id="logo-container" class="center-align col-12">
+      <div id="logo-eye-container" :class="{'active': isLogoBlinking}">{{ logoEyes }}</div>
+      <div id="logo-name-container" :class="{'active': isLogoBlinking}">Blink</div>
     </div>
 
-    <div style=" margin: 5rem 0;">
-      <div style="text-align: center;margin: 5rem 0;">
+    <div class="col-12" style="margin-top:5rem;">
+      <div style="text-align: center;">
         <img src="@/assets/logo.png" alt srcset />
       </div>
 
       <h2 v-show="counter > 0">{{counter}}</h2>
 
       <StartButton
+        style="margin-top: 6.2rem !important;"
         @click.native="blinkLogoAndRedirect"
         v-show="!(counter > 0)"
-        title="Clique aqui para Jogar"
+        title="Começar"
       ></StartButton>
 
-      <StartButton @click.native="blinkLogoAndRedirect" v-show="!(counter > 0)" title="Sobre ..."></StartButton>
+      <StartButton
+        style="margin: 0.9rem 0 !important;"
+        @click.native="blinkLogoAndRedirect"
+        v-show="!(counter > 0)"
+        title="Sobre ..."
+      ></StartButton>
     </div>
 
     <!-- <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/> -->
@@ -49,8 +51,6 @@ export default class Home extends Vue {
   logoEyes: string = ":";
   isLogoBlinking: boolean = false;
   counter: number = 0;
-
-  emotes: Array<string> = ["(", "v", "3", "#", "p", "D"];
 
   constructor() {
     super();
@@ -101,43 +101,49 @@ export default class Home extends Vue {
 </script>
 
 <style lang="scss">
+@import url("https://fonts.googleapis.com/css?family=Varela+Round&display=swap");
+
+$sign-color: rgba(249, 128, 128, 1);
+
 .StartButton {
   margin: 0.3rem 0 !important;
 }
 
 #logo-container {
   display: flex;
-  margin: 3rem 0;
+
+  font-family: "Varela Round", sans-serif;
+
   justify-content: center;
   align-items: center;
   text-align: center;
 
   user-select: none !important;
+
   color: #555;
 
-  padding: 0.2rem 2rem;
+  font-size: 26px;
 
-  border-radius: 18px;
+  color: #f2f2f2;
 
-  background: orange;
+  padding: 0.58rem 5rem !important;
+
+  max-width: 8rem;
+
+  border-radius: 10px;
+
+  background: $sign-color;
 }
 
 #logo-name-container {
-  margin-top: 0px;
   transition: all 0.2s ease;
 }
 
 #logo-eye-container {
-  padding-bottom: 10px !important;
   transition: all 0.2s ease-out;
 }
 
-#logo-name-container.active {
-  margin-left: -3px;
-  // text-transform: lowercase;
-}
 #logo-name-container.active::first-letter {
-  font-size: 36px;
   letter-spacing: 25px;
   transition: all 0.6s ease;
 }

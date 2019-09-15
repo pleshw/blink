@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="align-middle">
     <!--    <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
@@ -10,12 +10,16 @@
 
 
 <style lang="scss">
-$base-color: rgba(30, 113, 104, 1);
+$base-color: rgba(45, 119, 101, 1);
+$sub-color: rgba(125, 212, 211, 1);
+$sub-sub: rgba(140, 222, 224, 0.4);
+
+$bg-player-selector: rgba(83, 163, 153, 1);
 
 #app {
   background: linear-gradient(
     to top,
-    $base-color 7%,
+    $bg-player-selector 7%,
     rgba(140, 222, 224, 0.4) 95%
   );
   font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -28,7 +32,7 @@ $base-color: rgba(30, 113, 104, 1);
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-family: Helvetica neue, roboto;
+  font-family: "Varela Round", sans-serif;
 }
 #nav {
   padding: 30px;

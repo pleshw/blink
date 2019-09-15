@@ -1,5 +1,5 @@
 <template>
-  <div class="row align-bottom">
+  <div class="row align-bottom player-creator">
     <div
       class="card player-creator-card justify-content-center"
       :class="{'active': player.confirmed}"
@@ -25,6 +25,10 @@
             v-model="player.name"
             v-on:keyup.enter="makePlayer"
             type="text"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
           />
         </div>
         <button
@@ -74,14 +78,22 @@ export default class PlayerCreator extends Vue {
 
 <style lang="scss">
 $base-color: rgba(30, 113, 104, 1);
-$card-bg-color: rgba(255, 202, 240, 0.4);
-$active-card-bg-color: rgba(216, 141, 195, 1);
+$sub-font-color: rgba(252, 235, 134, 1);
+$card-bg-color: rgba(249, 162, 162, 1);
+$active-card-bg-color: rgba(239, 115, 115, 1);
 
 input {
   text-align: center;
   font-weight: bold;
 }
 
+.player-creator {
+  padding: 0 !important;
+}
+
+.player-creator .card {
+  max-width: 26vh !important;
+}
 .form-control-plaintext {
   box-shadow: none !important;
   outline: none !important;
@@ -90,19 +102,22 @@ input {
 
 .dashed-input {
   border: 2px dashed white !important;
+  border-radius: 6px !important;
+  font-size: 12px !important;
 }
 
 .player-creator-card {
   background: $card-bg-color !important;
   transition: all 0.4s !important;
-  border: 1px solid white !important;
-  border-radius: 18px !important;
+  border: none !important;
+  border-radius: 9px !important;
   cursor: pointer !important;
   width: 40vh;
 }
 
 .player-creator-card.active {
   background: $active-card-bg-color !important;
+  border: 1px solid rgba(206, 126, 126, 1) !important;
 }
 
 .player-creator-card .card-img {
@@ -114,9 +129,10 @@ input {
 
 .add-players-button {
   border: 0.09rem solid white !important;
-  width: 2.4rem !important;
+  width: 6rem !important;
   height: 2rem !important;
-  color: $base-color !important;
+  padding: 0.2rem !important;
+  color: $sub-font-color !important;
   font-weight: bold !important;
   text-align: center !important;
   line-height: 100% !important;

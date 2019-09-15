@@ -1,4 +1,7 @@
 import { Player } from '@/includes/Player'
+import { Task, TaskWithTime } from '@/includes/Task'
+import { Module } from '@/includes/Module'
+import { Stack } from '@/includes/Stack'
 
 class GameManager {
     players!: Map<number, Player>;
@@ -8,7 +11,7 @@ class GameManager {
 
     /// Uma tarefa é algo a ser feito no jogo, e que possui
     /// informações sobre como essa tarefa deve ser feita
-    tasks: Array<String> = new Array<Task>();
+    tasks: Array<Task> = new Array<Task>();
 
     materials: Array<String> = new Array<String>();
 
@@ -21,11 +24,11 @@ class GameManager {
 
     public StartGame(): void {
         // prepara todas as tarefas dos módulos
-        this.getTasksFromModules();
-        // filtra tarefas com os materiais disponiveis
-        this.prepareAvailableTasks();
-        // divide as tarefas preparando as rodadas do jogo
-        this.setupRounds();
+        // this.getTasksFromModules();
+        // // filtra tarefas com os materiais disponiveis
+        // this.prepareAvailableTasks();
+        // // divide as tarefas preparando as rodadas do jogo
+        // this.setupRounds();
     }
 
 

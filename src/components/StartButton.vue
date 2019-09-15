@@ -18,17 +18,17 @@ export default class StartButton extends Vue {
 <style lang="scss" scoped>
 .StartButton {
   //   background-color: rgb(82, 17, 82);
-  background-color: transparent;
+  background-color: rgba(255, 108, 108, 1);
 
-  padding: 0.8rem 2rem;
+  padding: 0.6rem 3rem;
 
-  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5) !important;
+  box-shadow: 3px 3px 1px rgba(221, 95, 95, 1) !important;
 
-  border: 1px solid rgb(82, 17, 82);
+  border: 1px solid rgba(255, 108, 108, 1);
   border-radius: 25px;
 
   //   color: white;
-  color: rgb(82, 17, 82);
+  color: #eee;
 
   font-style: oblique;
   font-weight: 600;

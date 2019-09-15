@@ -8,7 +8,7 @@
 
     <h1 class="info-title">Adicione os jogadores da sua partida</h1>
 
-    <div class="row add-players-row justify-content-around align-middle">
+    <div class="row add-players-row justify-content-center align-middle">
       <player-creator class="col-2" :playerID="1" @add-player="addPlayerToGame" />
 
       <player-creator class="col-2" :playerID="2" @add-player="addPlayerToGame" />
@@ -20,7 +20,7 @@
       <player-creator class="col-2" :playerID="5" @add-player="addPlayerToGame" />
     </div>
 
-    <StartButton style="margin-bottom: 2rem" title="Selecionar Módulos >"></StartButton>
+    <StartButton style="margin-bottom: 0; margin-top: 2rem;" title="Selecionar Módulos >"></StartButton>
   </div>
 </template>
 
@@ -68,6 +68,10 @@ a {
   outline: none !important;
 }
 
+.player-creator {
+  margin: 0 0.9rem !important;
+}
+
 .logo-on-edge {
   position: absolute;
   top: 3%;
@@ -75,6 +79,12 @@ a {
 }
 
 .add-players-row {
-  padding: 5rem 0;
+  padding: 2.5rem 0;
+  background: rgba(139, 226, 226, 0.71);
+
+  max-width: 160vh;
+  height: 26rem;
+
+  border-radius: 14px;
 }
 </style>
