@@ -52,7 +52,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 
 import { Module, AllModules, NotReady } from "@/includes/GameModules.ts";
 
@@ -167,10 +167,12 @@ $active-card-bg-color: rgba(239, 115, 115, 1);
   width: 9rem !important;
   align-items: center;
   justify-content: center;
+  border-radius: 14px !important;
 }
 
 .info-module h6 {
   max-height: 55px;
   font-style: oblique !important;
+  text-shadow: 1px 1px 1px rgba(221, 221, 221, 0.2);
 }
 </style>
