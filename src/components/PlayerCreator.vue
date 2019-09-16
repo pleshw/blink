@@ -119,10 +119,10 @@ input {
   border: 1px solid rgba(206, 126, 126, 1) !important;
 }
 
-.player-creator-card:hover {
-  border: none !important;
-  background-color: $base-color !important;
-}
+// .player-creator-card:hover {
+//   border: none !important;
+//   background-color: $base-color !important;
+// }
 
 .player-creator-card .card-img {
   padding: 3.5rem !important;

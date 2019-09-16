@@ -78,6 +78,13 @@ export default class ModSelection extends Vue {
     super();
   }
 
+  mounted() {
+    window.onbeforeunload = () => {
+      this.$router.push("ajuda");
+      return confirm("Confirm refresh");
+    };
+  }
+
   addModule(index: number): void {
     if (index >= this.allModules.length) return;
     if (this.$GameManager.modules.has(this.allModules[index])) {
@@ -117,6 +124,7 @@ $card-bg-color: rgba(249, 162, 162, 1);
 $active-card-bg-color: rgba(239, 115, 115, 1);
 
 .module {
+  display: flex;
   width: 3rem !important;
   height: 7rem !important;
   background-color: $card-bg-color;
@@ -125,6 +133,8 @@ $active-card-bg-color: rgba(239, 115, 115, 1);
   padding: 0 !important;
   cursor: pointer;
   transition: border 0.2s;
+  align-items: center;
+  justify-content: center;
 }
 
 .module.active {
@@ -138,14 +148,15 @@ $active-card-bg-color: rgba(239, 115, 115, 1);
 
 .module-img {
   margin: 0.33333rem 0 !important;
-  height: 6.3rem !important;
-  width: 90% !important;
+  height: auto !important;
+  max-height: 6.8rem !important;
+  max-width: 100% !important;
   transition: all 0.3s ease-in-out;
 }
 
 .module.active .module-img {
   margin: 0.6rem 0 !important;
-  height: 5.3rem !important;
+  transition: all 0.3s ease-in-out;
   width: 100% !important;
 }
 
@@ -160,5 +171,6 @@ $active-card-bg-color: rgba(239, 115, 115, 1);
 
 .info-module h6 {
   max-height: 55px;
+  font-style: oblique !important;
 }
 </style>
