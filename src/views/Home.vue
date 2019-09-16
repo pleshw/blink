@@ -33,16 +33,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 
 // Components
 import StartButton from "@/components/StartButton.vue";
-
-// Includes
-import { GameManager } from "@/includes/GameManager.ts";
-import { Mimica, Dance } from "@/includes/GameTasks.ts";
-
-Vue.prototype.$GameManager = new GameManager();
 
 @Component({
   components: {

@@ -21,7 +21,6 @@
           :class="{'active': $GameManager.modules.has(allModules[index-1])}"
           v-on:click="addModule(index-1)"
           @mouseover="selectModule(index-1)"
-          @mouseleave="unselectModule()"
         >
           <img
             :src="(index < allModules.length+1)? allModules[index-1].img : notReady.img "
@@ -35,9 +34,7 @@
       >
         <div class="col-12 align-middle">
           <h6>
-            <b>
-              <p>{{hoveredModuleDesc}}</p>
-            </b>
+            <b>{{hoveredModuleDesc}}</b>
           </h6>
         </div>
       </div>
@@ -62,7 +59,6 @@ import { Module, AllModules, NotReady } from "@/includes/GameModules.ts";
 // Components
 import InfoMarkers from "@/components/InfoMarkers.vue";
 import StartButton from "@/components/StartButton.vue";
-import { GameManager } from "@/includes/GameManager.ts";
 
 @Component({
   components: {
@@ -76,8 +72,7 @@ export default class ModSelection extends Vue {
 
   hoveredModule: Module = NotReady;
 
-  hoveredModuleDesc: string = "dd";
-  $GameManager: GameManager = new GameManager();
+  hoveredModuleDesc: string = "";
 
   constructor() {
     super();
@@ -90,6 +85,7 @@ export default class ModSelection extends Vue {
       return;
     }
     this.$GameManager.modules.add(this.allModules[index]);
+    console.log(this.$GameManager);
   }
 
   addAllModules(): void {
@@ -128,18 +124,22 @@ $active-card-bg-color: rgba(239, 115, 115, 1);
   border-radius: 14px;
   padding: 0 !important;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: border 0.2s;
 }
 
 .module.active {
-  border: 0.2rem solid $card-bg-color;
+  border: 0.3rem solid $card-bg-color !important;
+  background-color: $active-card-bg-color !important;
+}
+
+.module:hover {
   background-color: $active-card-bg-color !important;
 }
 
 .module-img {
   margin: 0.33333rem 0 !important;
   height: 6.3rem !important;
-  width: 100% !important;
+  width: 90% !important;
   transition: all 0.3s ease-in-out;
 }
 
@@ -154,7 +154,11 @@ $active-card-bg-color: rgba(239, 115, 115, 1);
   background-color: rgba(139, 226, 226, 0.71) !important;
   height: 6rem !important;
   width: 9rem !important;
+  align-items: center;
+  justify-content: center;
+}
 
-  vertical-align: middle !important;
+.info-module h6 {
+  max-height: 55px;
 }
 </style>

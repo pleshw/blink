@@ -82,15 +82,15 @@ import PlayerCreator from "@/components/PlayerCreator.vue";
   }
 })
 export default class PlayerSelection extends Vue {
-  @Prop({})
-  GameManager!: string;
-
-  logo: string = ":B";
   players!: Map<number, Player>;
 
   constructor() {
     super();
     this.players = new Map<number, Player>();
+    this.players.set(
+      1,
+      new Player("@Jogador1", 1, require("@/assets/user-triangle.png"))
+    );
   }
 
   addPlayerToGame(p: Player): void {
@@ -102,9 +102,8 @@ export default class PlayerSelection extends Vue {
   }
 
   redirectToModSelection() {
+    this.$GameManager.players = this.players;
     this.$router.push("modulos");
-
-    // this.$GameManager.players = this.players;
   }
 }
 </script>
