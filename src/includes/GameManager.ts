@@ -13,14 +13,8 @@ class GameManager {
     /// informações sobre como essa tarefa deve ser feita
     tasks: Array<Task> = new Array<Task>();
 
-    materials: Array<String> = new Array<String>();
-
     // guarda as tarefas de cada rodada da partida
     rounds: Stack<Task> = new Stack<Task>();
-
-    public addMaterial(material: Array<string>): void {
-        this.materials = [...material];
-    }
 
     public StartGame(): void {
         // prepara todas as tarefas dos módulos

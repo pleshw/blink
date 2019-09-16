@@ -5,6 +5,7 @@
       <router-link to="/about">About</router-link>
     </div>-->
     <router-view />
+    <!-- <transition name="slide-fade"></transition> -->
   </div>
 </template>
 
@@ -45,4 +46,13 @@ $bg-player-selector: rgba(83, 163, 153, 1);
     }
   }
 }
+
+// .slide-fade-enter-active {
+//   transition: all 0.3s ease;
+// }
+
+// .slide-fade-enter, .slide-fade-leave-to
+// /* .slide-fade-leave-active below version 2.1.8 */ {
+//   transform: translateX(2rem);
+// }
 </style>

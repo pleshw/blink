@@ -1,62 +1,72 @@
 <template>
-  <div>
-    <div class="logo-on-edge" style="text-align: center; max-width: 4.8rem !important;">
-      <router-link style to="/">
-        <img src="@/assets/logo.png" class="img-fluid" />
-      </router-link>
-    </div>
+  <div class="home justify-content-center row">
+    <img :src="require('@/assets/waves-bottom-players.png')" class="background-wave" alt />
+    <div style="z-index: 300;">
+      <div class="logo-on-edge" style="text-align: center; max-width: 4.8rem !important; ">
+        <router-link to="/">
+          <img src="@/assets/logo-sub-azul.png" class="img-fluid" />
+        </router-link>
+      </div>
 
-    <div class="info-title d-flex justify-content-start mb-1 p2 align-middle">
-      <info-markers style="padding: 0 !important;" :step="1" :length="2"></info-markers>
       <div
-        style="padding: 0 !important; line-height: 1;"
-        class="col-6 align-middle align-items-center h-100"
-      >Adicione os jogadores da sua partida</div>
+        class="info-title d-flex justify-content-start mb-1 p2 align-middle"
+        style="z-index: 300;"
+      >
+        <info-markers style="padding: 0 !important;" :step="1" :length="2"></info-markers>
+        <div
+          style="padding: 0 !important; line-height: 1;"
+          class="col-6 align-middle align-items-center h-100"
+        >Adicione os jogadores da sua partida</div>
+      </div>
+
+      <div class="row add-players-row justify-content-center align-middle" style="z-index: 300;">
+        <player-creator
+          class="col-2"
+          :playerID="1"
+          :img="require('@/assets/user-triangle.png')"
+          @add-player="addPlayerToGame"
+        />
+
+        <player-creator
+          class="col-2"
+          :playerID="2"
+          :img="require('@/assets/user-circle.png')"
+          @add-player="addPlayerToGame"
+        />
+
+        <player-creator
+          class="col-2"
+          :playerID="3"
+          :img="require('@/assets/user-reverse-triangle.png')"
+          @add-player="addPlayerToGame"
+        />
+
+        <player-creator
+          class="col-2"
+          :playerID="4"
+          :img="require('@/assets/user-square.png')"
+          @add-player="addPlayerToGame"
+        />
+
+        <player-creator
+          class="col-2"
+          :playerID="5"
+          :img="require('@/assets/user-half-circle.png')"
+          @add-player="addPlayerToGame"
+        />
+
+        <StartButton
+          @click.native="redirectToModSelection"
+          style="margin-bottom: 0; margin-top: 6rem; z-index: 300;"
+          title="Próximo"
+        ></StartButton>
+      </div>
     </div>
-
-    <div class="row add-players-row justify-content-center align-middle">
-      <player-creator
-        class="col-2"
-        :playerID="1"
-        :img="require('@/assets/user-triangle.png')"
-        @add-player="addPlayerToGame"
-      />
-
-      <player-creator
-        class="col-2"
-        :playerID="2"
-        :img="require('@/assets/user-circle.png')"
-        @add-player="addPlayerToGame"
-      />
-
-      <player-creator
-        class="col-2"
-        :playerID="3"
-        :img="require('@/assets/user-reverse-triangle.png')"
-        @add-player="addPlayerToGame"
-      />
-
-      <player-creator
-        class="col-2"
-        :playerID="4"
-        :img="require('@/assets/user-square.png')"
-        @add-player="addPlayerToGame"
-      />
-
-      <player-creator
-        class="col-2"
-        :playerID="5"
-        :img="require('@/assets/user-half-circle.png')"
-        @add-player="addPlayerToGame"
-      />
-    </div>
-
-    <StartButton style="margin-bottom: 0; margin-top: 2rem;" title="Selecionar Módulos >"></StartButton>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue, Watch, Prop } from "vue-property-decorator";
 
 import { Player } from "@/includes/Player.ts";
 
@@ -72,6 +82,9 @@ import PlayerCreator from "@/components/PlayerCreator.vue";
   }
 })
 export default class PlayerSelection extends Vue {
+  @Prop({})
+  GameManager!: string;
+
   logo: string = ":B";
   players!: Map<number, Player>;
 
@@ -86,6 +99,12 @@ export default class PlayerSelection extends Vue {
     } else {
       this.players.delete(p.id || 0);
     }
+  }
+
+  redirectToModSelection() {
+    this.$router.push("modulos");
+
+    // this.$GameManager.players = this.players;
   }
 }
 </script>

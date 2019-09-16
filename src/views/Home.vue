@@ -4,7 +4,7 @@
       <img src="@/assets/logo.png" class="img-fluid" />
     </div>
 
-    <div class="col-12" style="margin-top:5rem;">
+    <div class="col-12" style="margin-top:5rem;  z-index: 300;">
       <div style="text-align: center;">
         <!-- <img src="@/assets/logo.png" alt srcset /> -->
       </div>
@@ -13,18 +13,20 @@
 
       <StartButton
         style="margin-top: 6.2rem !important;"
-        @click.native="blinkLogoAndRedirect"
+        @click.native="redirectToGameMenu"
         v-show="!(counter > 0)"
         title="Começar"
       ></StartButton>
 
       <StartButton
         style="margin: 0.9rem 0 !important;"
-        @click.native="blinkLogoAndRedirect"
+        @click.native="{}"
         v-show="!(counter > 0)"
         title="Sobre ..."
       ></StartButton>
     </div>
+
+    <img :src="require('@/assets/waves-bottom.png')" class="background-wave" alt />
 
     <!-- <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/> -->
   </div>
@@ -38,7 +40,7 @@ import StartButton from "@/components/StartButton.vue";
 
 // Includes
 import { GameManager } from "@/includes/GameManager.ts";
-import { Mimica } from "@/includes/GameTasks.ts";
+import { Mimica, Dance } from "@/includes/GameTasks.ts";
 
 Vue.prototype.$GameManager = new GameManager();
 
@@ -60,48 +62,16 @@ export default class Home extends Vue {
     // console.log("Você pode ser: " + m.canBe);
     // console.log("Você é: " + m.reallyIs);
     // m.init();
+
+    // this.d = new Dance();
+    // console.log(this.d.title);
+    // console.log("Você pode ser: " + this.d.canBe);
+    // console.log("Você é: " + this.d.reallyIs);
+    // d.init();
   }
 
-  redirectToGameMenuWithCallback({ time = 3 }) {
-    this.counter = time;
-    let interval = setInterval(() => {
-      if (--this.counter === 0) {
-        this.$router.push("jogadores");
-        clearInterval(interval);
-      }
-    }, 1000);
-  }
-
-  redirectToGameMenu({ time = 3 }) {
-    this.counter = time;
-    let interval = setInterval(() => {
-      if (--this.counter === 0) {
-        this.$router.push("jogadores");
-        clearInterval(interval);
-      }
-    }, 1000);
-  }
-
-  blinkLogo(): void {
-    setTimeout(() => {
-      if (this.logoEyes == ":") {
-        this.isLogoBlinking = true;
-      }
-    }, 1200);
-
-    setTimeout(() => {
-      this.logoEyes = ";";
-    }, 2100);
-
-    setTimeout(() => {
-      this.logoEyes = ":";
-      // this.isLogoBlinking = false;
-    }, 2600);
-  }
-
-  blinkLogoAndRedirect(): void {
-    this.blinkLogo();
-    this.redirectToGameMenu({});
+  redirectToGameMenu() {
+    this.$router.push({ name: "jogadores" });
   }
 }
 </script>
@@ -165,6 +135,16 @@ $advice-font-color: rgba(209, 90, 90, 1);
 
 #logo-eye-container.active {
   font-size: 16px;
+}
+
+.background-wave {
+  display: block !important;
+  position: absolute !important;
+  max-width: 100% !important;
+  height: auto !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  z-index: 2;
 }
 </style>
 

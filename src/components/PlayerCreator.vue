@@ -118,8 +118,8 @@ input {
 .player-creator-card .card-img {
   padding: 3.5rem !important;
   border-radius: 100vh;
-  width: 13rem;
-  height: 13rem;
+  width: 12.5rem;
+  height: 12.5rem;
 }
 
 .add-players-button {
