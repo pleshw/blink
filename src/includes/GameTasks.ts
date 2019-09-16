@@ -41,7 +41,7 @@ let coreografiaAvançada: File[] =
         require('@/assets/user-circle.png'),
         require('@/assets/user-triangle.png')];
 
-let coreografias: Array<File[]> = [coreografiaSimples, coreografiaMedia, coreografiaAvançada];
+let coreografias: Array<File[]> = [coreografiaSimples];
 class Dance extends TaskWithTime {
     canBe!: File[];
     reallyIs!: File;

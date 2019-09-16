@@ -1,7 +1,12 @@
 <template>
   <div class="row justify-content-center container">
+    <div class="logo-on-edge" style="text-align: center; max-width: 4.8rem !important; ">
+      <router-link to="/">
+        <img src="@/assets/logo-sub-rosa.png" class="img-fluid" />
+      </router-link>
+    </div>
     <div
-      class="info-title d-flex justify-content-start col-6 align-middle mt-4"
+      class="info-title d-flex justify-content-start col-8 align-middle mt-4"
       style="z-index: 300;"
     >
       <info-markers style="padding: 0 !important;" :step="2" :length="2"></info-markers>
@@ -26,10 +31,11 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 
+import { Teatro } from "@/includes/GameModules.ts";
+
 // Components
 import InfoMarkers from "@/components/InfoMarkers.vue";
 import StartButton from "@/components/StartButton.vue";
-import { Teatro } from "@/includes/GameModules";
 
 @Component({
   components: {
@@ -37,11 +43,11 @@ import { Teatro } from "@/includes/GameModules";
     InfoMarkers
   }
 })
-export default class Home extends Vue {
+export default class ModSelection extends Vue {
   constructor() {
     super();
 
-    console.log(Teatro);
+    console.log(Teatro.taskList);
   }
 }
 </script>
