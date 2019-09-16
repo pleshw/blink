@@ -60,6 +60,10 @@ export default class PlayerCreator extends Vue {
     this.player.name = "@Jogador" + this.playerID;
     this.player.picture = this.img;
     this.player.id = this.playerID;
+
+    if (this.playerID === 1) {
+      this.player.confirmed = true;
+    }
   }
 
   @Emit("add-player")

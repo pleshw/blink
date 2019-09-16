@@ -71,7 +71,7 @@ export default class Home extends Vue {
   }
 
   redirectToGameMenu() {
-    this.$router.push({ name: "jogadores" });
+    this.$router.push("ajuda");
   }
 }
 </script>

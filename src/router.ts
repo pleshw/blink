@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import HowTo from './views/HowTo.vue'
 import PlayerSelection from './views/PlayerSelection.vue'
 import ModSelection from './views/ModSelection.vue'
 
@@ -14,6 +15,10 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    }, {
+      path: '/ajuda',
+      name: 'ajuda',
+      component: HowTo,
     },
     {
       path: '/jogadores',
