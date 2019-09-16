@@ -16,6 +16,7 @@ $sub-color: rgba(125, 212, 211, 1);
 $sub-sub: rgba(140, 222, 224, 0.4);
 
 $bg-player-selector: rgba(83, 163, 153, 1);
+$advice-font-color: rgba(209, 90, 90, 1);
 
 #app {
   background: linear-gradient(
@@ -28,7 +29,7 @@ $bg-player-selector: rgba(83, 163, 153, 1);
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
   text-align: center;
-  color: #2c3e50;
+  color: $advice-font-color;
   display: flex;
   align-items: center;
   justify-content: center;

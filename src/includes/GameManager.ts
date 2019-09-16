@@ -7,7 +7,7 @@ class GameManager {
     players!: Map<number, Player>;
 
     /// Um modulo é um aglomerado de questões de várias categorias com um tema em comum
-    modules: Array<Module> = new Array<Module>();
+    modules: Set<Module> = new Set<Module>();
 
     /// Uma tarefa é algo a ser feito no jogo, e que possui
     /// informações sobre como essa tarefa deve ser feita
