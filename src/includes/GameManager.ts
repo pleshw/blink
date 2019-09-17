@@ -1,28 +1,46 @@
+//// FILTRAR TAREFAS QUE EXIGEM MAIS JOGADORES
+
+
 import { Player } from '@/includes/Player'
 import { Task, TaskWithTime } from '@/includes/Task'
 import { Module } from '@/includes/Module'
 import { Stack } from '@/includes/Stack'
 
+function getRandomKey(collection: Map<any, any> | Set<any>) {
+    let keys = Array.from(collection.keys());
+    return keys[Math.floor(Math.random() * keys.length)];
+}
+
 class GameManager {
     players!: Map<number, Player>;
 
-    /// Um modulo é um aglomerado de questões de várias categorias com um tema em comum
+
     modules: Set<Module> = new Set<Module>();
 
-    /// Uma tarefa é algo a ser feito no jogo, e que possui
-    /// informações sobre como essa tarefa deve ser feita
+
     tasks: Array<Task> = new Array<Task>();
 
-    // guarda as tarefas de cada rodada da partida
+
     rounds: Stack<Task> = new Stack<Task>();
 
-    public StartGame(): void {
-        // prepara todas as tarefas dos módulos
-        // this.getTasksFromModules();
-        // // filtra tarefas com os materiais disponiveis
-        // this.prepareAvailableTasks();
-        // // divide as tarefas preparando as rodadas do jogo
-        // this.setupRounds();
+    getEnoughPlayers(n: number): Player[] {
+        let arr: Player[] = [...this.players.values()];
+
+
+
+        let result: Player[] = new Array<Player>();
+        for (let i = 0; i < n; i++) {
+            let id = Math.floor(Math.random() * arr.length);
+            result.push(arr[id]);
+            arr.splice(id, 1);
+        }
+
+        return result;
+    }
+
+    getRandomModule(): Module {
+        let arr: Array<Module> = [...this.modules];
+        return arr[Math.floor(Math.random() * arr.length)];
     }
 
 

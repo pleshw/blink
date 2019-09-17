@@ -3,55 +3,97 @@ import { Task, TaskWithTime } from '@/includes/Task'
 
 
 let felinos: string[] = ["um gato", "um leão", "um tigre", "uma onça"];
-let roedores: string[] = ["um coelho", "um rato", "uma capivara", "um rato", "um timbu"];
-let aves: string[] = ["um pardal", "uma galinha", "um periquito", "uma arara"];
+let roedores: string[] = ["um coelho", "um rato", "uma capivara", "um esquilo"];
+let aves: string[] = ["um pardal", "uma calopsita", "um periquito", "uma arara"];
 let caninos: string[] = ["um lobo", "um cachorro", "uma hiena", "uma raposa"];
 
-let mimicas: Array<string[]> = [felinos, roedores, aves, caninos];
+let profissoes: string[] = ["um encanador", "um ferreiro", "um professor", "um relojoeiro"];
+let profissoes2: string[] = ["um cantor", "um locutor", "um apresentador", "um reporter"];
+
+let objetos: string[] = ["uma cadeira", "uma mesa", "uma pia", "um sofá"]
+
 class Mimica extends TaskWithTime {
-    canBe!: string[];
-    reallyIs!: string;
 
-    constructor() {
-        super("Você imita os outros acertam!!!", 60, 1);
+    alternativas!: string[];
+    idCorreta: number;
+    correta!: string;
 
-        this.canBe = mimicas[Math.floor(Math.random() * mimicas.length)];
-        this.reallyIs = this.canBe[Math.floor(Math.random() * this.canBe.length)];
+    constructor(alternativas: Array<string>) {
+        super("Você imita os outros acertam!!!", 60, 1, "Cuidado pra não fazer muito barulho.");
+
+        this.alternativas = alternativas;
+        this.idCorreta = Math.floor(Math.random() * this.alternativas.length);
+        this.correta = this.alternativas[this.idCorreta];
+    }
+
+    verificarResposta(resposta: number) {
+        return (resposta == this.idCorreta);
     }
 }
+let MimicaRoedores: Mimica = new Mimica(roedores);
+let MimicaFelinos: Mimica = new Mimica(felinos);
+let MimicaAves: Mimica = new Mimica(aves);
+let MimicaCaninos: Mimica = new Mimica(caninos);
 
-let coreografiaSimples: File[] =
-    [
-        require('@/assets/user-circle.png'),
-        require('@/assets/user-triangle.png'),
-        require('@/assets/user-circle.png'),
-        require('@/assets/user-triangle.png')];
+let MimicaProfissoes: Mimica = new Mimica(profissoes);
+let MimicaProfissoes2: Mimica = new Mimica(profissoes2);
+let MimicaObjetos: Mimica = new Mimica(objetos);
 
-let coreografiaMedia: File[] =
-    [
-        require('@/assets/user-circle.png'),
-        require('@/assets/user-triangle.png'),
-        require('@/assets/user-circle.png'),
-        require('@/assets/user-triangle.png')];
 
-let coreografiaAvançada: File[] =
-    [
-        require('@/assets/user-circle.png'),
-        require('@/assets/user-triangle.png'),
-        require('@/assets/user-circle.png'),
-        require('@/assets/user-triangle.png')];
+let TodasAsMimicas = [MimicaRoedores, MimicaFelinos, MimicaAves, MimicaCaninos, MimicaProfissoes, MimicaProfissoes2, MimicaObjetos];
+// let coreografiaSimples: File[] =
+//     [
+//         require('@/assets/user-circle.png'),
+//         require('@/assets/user-triangle.png'),
+//         require('@/assets/user-circle.png'),
+//         require('@/assets/user-triangle.png')];
 
-let coreografias: Array<File[]> = [coreografiaSimples];
+// let coreografiaMedia: File[] =
+//     [
+//         require('@/assets/user-circle.png'),
+//         require('@/assets/user-triangle.png'),
+//         require('@/assets/user-circle.png'),
+//         require('@/assets/user-triangle.png')];
+
+// let coreografiaAvançada: File[] =
+//     [
+//         require('@/assets/user-circle.png'),
+//         require('@/assets/user-triangle.png'),
+//         require('@/assets/user-circle.png'),
+//         require('@/assets/user-triangle.png')];
+
+// let coreografias: Array<File[]> = [coreografiaSimples];
 class Dance extends TaskWithTime {
-    canBe!: File[];
-    reallyIs!: File;
+    alternativas!: File[];
+    idCorreta!: number;
+    correta!: File;
 
-    constructor() {
+    constructor(alternativas: Array<File[]>) {
         super("Só dance...", 60, 1, "Você dança, os outros acertam sua coreografia.");
 
-        this.canBe = coreografias[Math.floor(Math.random() * coreografias.length)];
-        this.reallyIs = this.canBe[Math.floor(Math.random() * this.canBe.length)];
+        this.alternativas = alternativas[Math.floor(Math.random() * alternativas.length)];
+        this.idCorreta = Math.floor(Math.random() * this.alternativas.length);
+        this.correta = this.alternativas[this.idCorreta];
+    }
+
+
+    verificarResposta(resposta: number) {
+        return (resposta == this.idCorreta);
     }
 }
 
-export { Mimica, Dance };
+
+class Question extends TaskWithTime {
+    alternativas!: string[];
+    correta!: string;
+
+    constructor(alternativas: Array<string>, correta: string) {
+        super("Responda essa pergunta", 60, 1, "Pode não ser tão fácil quanto parece...");
+
+        this.alternativas = alternativas;
+        this.correta = correta;
+    }
+}
+
+
+export { TodasAsMimicas, Dance };

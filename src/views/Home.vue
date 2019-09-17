@@ -11,6 +11,10 @@
 
       <h3 class="counter" v-show="counter > 0">{{counter}}</h3>
 
+      <div class="row justify-content-center" style>
+        <img :src="require('@/assets/randomizing-questions.gif')" class="img-fluid col-3" alt />
+      </div>
+
       <StartButton
         style="margin-top: 6.2rem !important;"
         @click.native="redirectToGameMenu"

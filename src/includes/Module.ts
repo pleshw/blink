@@ -12,6 +12,13 @@ class Module {
         this.img = img;
         this.taskList = new Array<Task>(...tasks);
     }
+
+    useRandomTask(): Task {
+        let id = Math.floor(Math.random() * this.taskList.length);
+        let tmp: Task = this.taskList[id];
+        this.taskList.splice(id, 1);
+        return tmp;
+    }
 }
 
 export { Module };

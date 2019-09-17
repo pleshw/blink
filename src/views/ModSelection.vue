@@ -25,6 +25,7 @@
           <img
             :src="(index < allModules.length+1)? allModules[index-1].img : notReady.img "
             class="img-fluid col module-img"
+            :class="{'module-not-ready': index > allModules.length}"
           />
         </div>
       </div>
@@ -42,7 +43,7 @@
       <div class="row col-12 justify-content-center">
         <StartButton
           class
-          @click.native="{}"
+          @click.native="redirectToPreloader"
           style="margin-bottom: 0; margin-top: 2rem; z-index: 300;"
           title="Começar"
         ></StartButton>
@@ -74,25 +75,22 @@ export default class ModSelection extends Vue {
 
   hoveredModuleDesc: string = "";
 
+  addedTasks: number = 0;
+
   constructor() {
     super();
-  }
-
-  mounted() {
-    window.onbeforeunload = () => {
-      this.$router.push("ajuda");
-      return confirm("Confirm refresh");
-    };
   }
 
   addModule(index: number): void {
     if (index >= this.allModules.length) return;
     if (this.$GameManager.modules.has(this.allModules[index])) {
       this.$GameManager.modules.delete(this.allModules[index]);
+      this.addedTasks -= 1;
       return;
     }
     this.$GameManager.modules.add(this.allModules[index]);
-    console.log(this.$GameManager);
+    this.addedTasks += 1;
+    // console.log(this.$GameManager);
   }
 
   addAllModules(): void {
@@ -109,6 +107,11 @@ export default class ModSelection extends Vue {
     }
 
     this.hoveredModuleDesc = this.hoveredModule.description;
+  }
+
+  redirectToPreloader(): void {
+    if (this.addedTasks > 0) this.$router.push("game");
+    return;
   }
 
   unselectModule(): void {
@@ -151,6 +154,14 @@ $active-card-bg-color: rgba(239, 115, 115, 1);
   height: auto !important;
   max-height: 6.8rem !important;
   max-width: 100% !important;
+  transition: all 0.3s ease-in-out;
+}
+
+.module-not-ready {
+  margin: 0.33333rem 0 !important;
+  height: auto !important;
+
+  max-width: 60% !important;
   transition: all 0.3s ease-in-out;
 }
 
