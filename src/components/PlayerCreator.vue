@@ -25,6 +25,7 @@
             autocapitalize="off"
             spellcheck="false"
             :tabindex="playerID"
+            @blur="makePlayer"
           />
         </div>
         <button
