@@ -23,27 +23,27 @@ abstract class Task {
 
 abstract class TaskWithTime extends Task {
     time!: number;
-    counter: number = -1;
+    counter!: number;
+    taskCicle!: number;
 
     constructor(title: string, time: number, players?: number, description?: string, ) {
         super(title, players || 1, description);
         this.time = time;
+        this.counter = this.time;
     }
 
     init(): void {
-        if (this.counter != -1) return;
-
-
-        this.counter = this.time;
-
-        let v = setInterval(() => {
-            console.log(this.counter);
+        this.taskCicle = setInterval(() => {
             if (this.counter <= 0) {
-
-                clearInterval(v);
+                this.stopTimer();
+                return;
             }
             this.counter -= 1;
         }, 1000);
+    }
+
+    stopTimer(): void {
+        clearInterval(this.taskCicle);
     }
 }
 

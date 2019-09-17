@@ -19,7 +19,7 @@ class Mimica extends TaskWithTime {
     correta!: string;
 
     constructor(alternativas: Array<string>) {
-        super("Você imita os outros acertam!!!", 60, 1, "Cuidado pra não fazer muito barulho.");
+        super("Você imita os outros acertam!!!", 5, 1, "Cuidado pra não fazer muito barulho.");
 
         this.alternativas = alternativas;
         this.idCorreta = Math.floor(Math.random() * this.alternativas.length);
@@ -27,6 +27,7 @@ class Mimica extends TaskWithTime {
     }
 
     verificarResposta(resposta: number) {
+        this.stopTimer();
         return (resposta == this.idCorreta);
     }
 }

@@ -1,48 +1,82 @@
 <template>
-  <div
-    class="row container justify-content-center centered"
-    style="  background-color: rgba(139, 226, 226, 0.71) !important; border-radius: 15px;   padding: 2rem !important;"
-  >
-    <div class="row col-3 justify-content-center">
-      <div class="col-10 selected-module centered mb-4">
-        <h4>{{this.moduloSelecionado.name}}</h4>
-      </div>
-      <div class="col-12 theme-view mb-4 centered">
-        <img :src="selectedModuleImg" class="img-fluid" alt />
-      </div>
-      <div class="col-10 timer centered" v-if="tarefaAtiva">{{taskSelecionada.time}}s</div>
-    </div>
+  <div>
+    <img :src="require('@/assets/waves-game.png')" class="background-wave" alt />
+    <div class="row container justify-content-center centered">
+      <div class="with-bg container-fluid row centered">
+        <div class="row col-3 justify-content-center" style="z-index: 300;">
+          <div class="col-10 selected-module centered mb-4">
+            <h4>{{this.moduloSelecionado.name}}</h4>
+          </div>
+          <div class="col-12 theme-view mb-4 centered">
+            <img :src="selectedModuleImg" class="img-fluid" alt />
+          </div>
+          <div class="col-10 timer centered" v-if="tarefaAtiva">{{timeLeft}}</div>
+        </div>
 
-    <div class="col-8 offset-1 row questions container-fluid centered">
-      <div class="row col-12">
-        <h3 class="col-12 text-left">{{taskSelecionada.title}}</h3>
-        <h6 class="col-12 text-right">{{taskSelecionada.description}}</h6>
-      </div>
+        <div class="col-8 offset-1 row questions container-fluid centered" style="z-index: 300;">
+          <!-- Desc -->
+          <div
+            :class="{'on': onTaskDescription, 'off': onTaskExecution}"
+            class="desc-screen row container-fluid centered justify-content-center mb-2"
+          >
+            <div class="row col-12 mb-5 mt-5">
+              <h3 class="col-12 text-left">{{tarefaSelecionada.title}}</h3>
+              <h6 class="col-12 text-right">{{tarefaSelecionada.description}}</h6>
+            </div>
 
-      <div class="row col-6">
-        <div
-          class="col centered"
-          v-for="(jogador, index) in jogadoresSelecionados"
-          :class="{'push-2': (index > 0)}"
-          v-bind:key="index"
-        >
-          <img :src="jogador.picture" class="img-fluid player-exibit" alt />
+            <div class="row col-5 justify-content-around mb-5">
+              <div
+                class="col centered row"
+                v-for="(jogador, index) in jogadoresSelecionados"
+                :class="{'push-2': (index > 0)}"
+                v-bind:key="index"
+              >
+                <img :src="jogador.picture" class="img-fluid player-exibit col-10 mb-2" alt />
+                <div class="row">
+                  <h4
+                    class="col-12 what-perform"
+                    v-if="moduloSelecionado.name == 'Teatro'"
+                  >{{tarefaSelecionada.correta}}</h4>
+                  <h6 class="col-12">{{jogador.name}}</h6>
+                </div>
+              </div>
+            </div>
+
+            <StartButton
+              class="col-12 mt-6"
+              @click.native="initTask"
+              v-show="!(counter > 0)"
+              title="Entendi"
+            ></StartButton>
+          </div>
+
+          <!-- Quest -->
+          <div
+            :class="{'on': onTaskExecution, 'off': onTaskDescription}"
+            class="task-screen row container-fluid centered justify-content-center mb-2"
+          >
+            <div
+              class="row alternativas col-12"
+              v-for="(alternativa, index) in alternativas"
+              v-bind:key="index"
+            >
+              <StartButton
+                class="col-12"
+                @click.native="tarefaSelecionada.verificarResposta(alternativa)"
+                v-show="!(counter > 0)"
+                :title="alternativa"
+              ></StartButton>
+            </div>
+          </div>
         </div>
       </div>
-
-      <StartButton
-        class="col-12"
-        @click.native="redirectToGameMenu"
-        v-show="!(counter > 0)"
-        title="Entendi"
-      ></StartButton>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import { Component, Watch } from "vue-property-decorator";
 
 import { Player } from "@/includes/Player.ts";
 import { Task } from "@/includes/Task.ts";
@@ -63,9 +97,28 @@ export default class Game extends Vue {
   players!: Map<number, Player>;
 
   moduloSelecionado!: Module;
-  taskSelecionada: Task | null = null;
+  tarefaSelecionada!: Task;
 
   jogadoresSelecionados!: Player[];
+
+  onTaskDescription: boolean = true;
+  onTaskExecution: boolean = false;
+
+  @Watch("timeLeft", { immediate: true, deep: true }) onTimeEnded(
+    val: number,
+    oldVal: number
+  ) {
+    if (val == 0) {
+      this.onTaskDescription = true;
+      this.onTaskExecution = false;
+      this.moduloSelecionado = this.GameManager.getRandomModule();
+      this.tarefaSelecionada = this.moduloSelecionado.useRandomTask();
+
+      this.jogadoresSelecionados = this.GameManager.getEnoughPlayers(
+        this.tarefaSelecionada.players
+      );
+    }
+  }
 
   sortingGif: File = require("@/assets/randomizing-questions.gif");
   teatroImg: File = require("@/assets/modulo-teatro-cores.png");
@@ -79,15 +132,23 @@ export default class Game extends Vue {
     this.modules = this.GameManager.modules;
     this.players = this.GameManager.players;
     this.moduloSelecionado = this.GameManager.getRandomModule();
-    this.taskSelecionada = this.moduloSelecionado.useRandomTask();
+    this.tarefaSelecionada = this.moduloSelecionado.useRandomTask();
 
     this.jogadoresSelecionados = this.GameManager.getEnoughPlayers(
-      this.taskSelecionada.players
+      this.tarefaSelecionada.players
     );
   }
 
   get tarefaAtiva(): boolean {
     return this.moduloSelecionado !== null;
+  }
+
+  get timeLeft(): number {
+    return this.tarefaSelecionada.counter;
+  }
+
+  get timeOver(): boolean {
+    return this.tarefaSelecionada.counter == 0;
   }
 
   get selectedModuleImg(): File {
@@ -102,15 +163,45 @@ export default class Game extends Vue {
         return this.sortingGif;
     }
   }
+
+  get alternativas(): string {
+    return this.tarefaSelecionada.alternativas;
+  }
+
+  initTask(): void {
+    this.onTaskDescription = false;
+    this.onTaskExecution = true;
+    this.tarefaSelecionada.init();
+  }
 }
 </script>
 
 <style lang="scss">
+$acertou: rgba(137, 219, 137, 1);
+$errou: rgba(214, 56, 56, 1);
+
 $base-color: rgba(30, 113, 104, 1);
 $sub-font-color: rgba(252, 235, 134, 1);
 $card-bg-color: rgba(249, 162, 162, 1);
 $active-card-bg-color: rgba(239, 115, 115, 1);
 $advice-font-color: rgba(209, 90, 90, 1);
+
+.task-screen,
+.desc-screen {
+  transition: all 1s;
+}
+
+.task-screen.on,
+.desc-screen.on {
+  display: flex;
+  transition: all 1s;
+}
+
+.task-screen.off,
+.desc-screen.off {
+  display: none !important;
+  transition: all 1s;
+}
 
 .centered {
   display: flex;
@@ -124,20 +215,25 @@ $advice-font-color: rgba(209, 90, 90, 1);
   align-items: center;
   justify-content: center;
   vertical-align: middle;
-  border-radius: 6px;
+  border-radius: 14px !important;
   background-color: $card-bg-color !important;
 }
 
 .player-exibit {
-  background-color: lightgrey !important;
+  background-color: $card-bg-color !important;
   border-radius: 100vh;
+}
+
+.selected-module {
+  height: 3.5em !important;
 }
 
 .selected-module h4 {
   line-height: 1em;
   margin: 0 !important;
-  padding: 0.5em 0 !important;
-  color: $advice-font-color !important;
+  padding: 0 0 !important;
+  color: white !important;
+  text-transform: uppercase;
 }
 
 .theme-view {
@@ -166,5 +262,16 @@ $advice-font-color: rgba(209, 90, 90, 1);
   height: 80vh;
   background: white;
   border-radius: 14px;
+}
+
+.with-bg {
+  background-color: rgba(139, 226, 226, 0.71) !important;
+  z-index: 300 !important;
+  border-radius: 15px;
+  padding: 2rem !important;
+}
+
+.what-perform {
+  text-transform: capitalize;
 }
 </style>

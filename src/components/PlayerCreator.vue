@@ -24,6 +24,7 @@
             autocorrect="off"
             autocapitalize="off"
             spellcheck="false"
+            :tabindex="playerID"
           />
         </div>
         <button
