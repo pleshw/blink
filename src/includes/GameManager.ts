@@ -26,8 +26,6 @@ class GameManager {
     getEnoughPlayers(n: number): Player[] {
         let arr: Player[] = [...this.players.values()];
 
-
-
         let result: Player[] = new Array<Player>();
         for (let i = 0; i < n; i++) {
             let id = Math.floor(Math.random() * arr.length);
@@ -40,7 +38,18 @@ class GameManager {
 
     getRandomModule(): Module {
         let arr: Array<Module> = [...this.modules];
-        return arr[Math.floor(Math.random() * arr.length)];
+
+        if (arr.length <= 0) {
+            return new Module("Fim de Jogo", "Bem esse é o fim. Até mais ver ;B", require('@/assets/modulo-not-ready.png'));
+        }
+
+        let result: Module = arr[Math.floor(Math.random() * arr.length)];
+        if (result.isEmpty) {
+            this.modules.delete(result);
+            return this.getRandomModule();
+        }
+
+        return result;
     }
 
 

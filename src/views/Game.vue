@@ -104,6 +104,15 @@ export default class Game extends Vue {
   onTaskDescription: boolean = true;
   onTaskExecution: boolean = false;
 
+  @Watch("tarefaSelecionada", { immediate: true, deep: true }) onEndOfGame(
+    val: Module,
+    oldVal: Module
+  ) {
+    if (val.name == "Fim de Jogo") {
+      this.$router.push("fim");
+    }
+  }
+
   @Watch("timeLeft", { immediate: true, deep: true }) onTimeEnded(
     val: number,
     oldVal: number

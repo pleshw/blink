@@ -13,6 +13,10 @@ class Module {
         this.taskList = new Array<Task>(...tasks);
     }
 
+    get isEmpty(): boolean {
+        return this.taskList.length <= 0;
+    }
+
     useRandomTask(): Task {
         let id = Math.floor(Math.random() * this.taskList.length);
         let tmp: Task = this.taskList[id];
