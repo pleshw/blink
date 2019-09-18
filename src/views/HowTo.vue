@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import StartButton from "@/components/StartButton.vue";
 
 @Component({
@@ -26,6 +26,16 @@ import StartButton from "@/components/StartButton.vue";
   }
 })
 export default class HowTo extends Vue {
+  @Watch("$route", { immediate: true, deep: true })
+  onUrlChange(newVal: any, oldVal: any) {
+    console.log({ newVal });
+  }
+
+  constructor() {
+    super();
+    this.$router.go(0);
+  }
+
   redirectToPlayerSelection() {
     this.$router.push("jogadores");
   }

@@ -112,7 +112,7 @@ export default class ModSelection extends Vue {
   }
 
   redirectToPreloader(): void {
-    if (this.addedTasks > 0) this.$router.push("game");
+    if (this.addedTasks > 0) this.$router.replace("game");
     return;
   }
 

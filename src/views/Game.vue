@@ -16,12 +16,12 @@
         <div class="col-8 offset-1 row questions container-fluid centered" style="z-index: 300;">
           <!-- Desc -->
           <div
-            :class="{'on': onTaskDescription, 'off': onTaskExecution}"
+            :class="{'on': onTaskDescription, 'off': onTaskExecution || (onArtQuestion && !onTaskDescription)}"
             class="desc-screen row container-fluid centered justify-content-center mb-2"
           >
-            <div class="row col-12 mb-5 mt-5">
+            <div class="row col-12 mb-5 mt-4">
               <h3 class="col-12 text-left">{{tarefaSelecionada.title}}</h3>
-              <h6 class="col-12 text-right">{{tarefaSelecionada.description}}</h6>
+              <h6 class="col-12 text-right">{{tarefaSelecionada.subtitle}}</h6>
             </div>
 
             <div class="row col-5 justify-content-around mb-5">
@@ -44,18 +44,36 @@
 
             <StartButton
               class="col-12 mt-6"
-              @click.native="initTask"
-              v-show="!(counter > 0)"
+              @click.native="onArtQuestion ? initArtTask() : initTask()"
               title="Entendi"
             ></StartButton>
           </div>
 
+          <!-- Artes -->
+          <div
+            :class="{'on': onArtQuestion && (!onTaskExecution && !onTaskDescription), 'off': onTaskDescription || onTaskExecution}"
+            class="task-screen row container-fluid centered justify-content-center"
+          >
+            <div class="row container-fluid centered justify-content-center mb-5">
+              <div class="row col-12 mt-5">
+                <h5 class="col-12 text-left mb-5">{{tarefaSelecionada.description}}</h5>
+              </div>
+              <div class="row col-9 mb-4">
+                <img class="img-fluid" :src="tarefaSelecionada.img" />
+              </div>
+              <StartButton class="col-12" @click.native="novoRound" :title="'Pronto'"></StartButton>
+            </div>
+          </div>
+
           <!-- Quest -->
           <div
-            :class="{'on': onTaskExecution, 'off': onTaskDescription}"
-            class="task-screen row container-fluid centered justify-content-center mb-2"
+            :class="{'on': onTaskExecution, 'off': onTaskDescription || onArtQuestion}"
+            class="task-screen row container-fluid centered justify-content-center"
           >
-            <div class="row container-fluid centered justify-content-center mb-4">
+            <div class="row container-fluid centered justify-content-center mb-5">
+              <div class="row col-12">
+                <h3 class="col-12 text-left mb-5">{{tarefaSelecionada.description}}</h3>
+              </div>
               <div
                 class="row alternativas col-12"
                 v-for="(alternativa, index) in alternativas"
@@ -63,15 +81,21 @@
               >
                 <StartButton
                   class="col-12"
-                  @click.native="verificarResposta(index)"
+                  @click.native="acertou === null ? verificarResposta(index): {}"
                   :title="alternativa"
                 ></StartButton>
               </div>
             </div>
-            <div v-if="acertou" class="col-12 texto-correto">Você acertou</div>
-            <div v-if="acertou === false" class="col-12 texto-errado">Você errou</div>
-            <div v-if="acertou !== null" class="col-12 texto-errado">
-              <StartButton class="col-12" :title="'Proximo'" @click.native="novoRound"></StartButton>
+            <div class="response-response row justify-content-center centered">
+              <div v-if="acertou" class="col-2 row">
+                <img class="img-fluid col-11" :src="require('@/assets/resposta-certa.png')" />
+              </div>
+              <div v-if="acertou === false" class="col-2 row">
+                <img class="img-fluid col-11" :src="require('@/assets/resposta-errada.png')" />
+              </div>
+              <div v-if="acertou !== null" class="col-4 row">
+                <StartButton class="col-6" :title="'Proximo'" @click.native="novoRound"></StartButton>
+              </div>
             </div>
           </div>
         </div>
@@ -109,36 +133,13 @@ export default class Game extends Vue {
 
   onTaskDescription: boolean = true;
   onTaskExecution: boolean = false;
+  onArtQuestion: boolean = false;
 
   acertou: boolean | null = null;
 
-  @Watch("tarefaSelecionada", { immediate: true, deep: true }) onEndOfGame(
-    val: Module,
-    oldVal: Module
-  ) {
-    if (val.name == "Fim de Jogo") {
-      this.$router.push("fim");
-    }
-  }
+  howManyQuestionsLeft: number = 11;
 
-  @Watch("timeLeft", { immediate: true, deep: true }) onTimeEnded(
-    val: number,
-    oldVal: number
-  ) {
-    if (val == 0) {
-      this.onTaskDescription = true;
-      this.onTaskExecution = false;
-
-      this.moduloSelecionado = this.GameManager.getRandomModule();
-      this.tarefaSelecionada = this.moduloSelecionado.useRandomTask();
-
-      this.jogadoresSelecionados = this.GameManager.getEnoughPlayers(
-        this.tarefaSelecionada.players
-      );
-    }
-  }
-
-  // n - 1/2
+  // (n - 1)/2
 
   sortingGif: File = require("@/assets/randomizing-questions.gif");
   teatroImg: File = require("@/assets/modulo-teatro-cores.png");
@@ -155,17 +156,37 @@ export default class Game extends Vue {
     this.moduloSelecionado = this.GameManager.getRandomModule();
     this.tarefaSelecionada = this.moduloSelecionado.useRandomTask();
 
+    this.onTaskDescription = true;
+    this.onTaskExecution = false;
+    this.onArtQuestion = false;
+
+    if (this.moduloSelecionado.name == "Artes") {
+      this.onTaskDescription = true;
+      this.onTaskExecution = false;
+      this.onArtQuestion = true;
+      this.acertou = null;
+    }
+
     this.jogadoresSelecionados = this.GameManager.getEnoughPlayers(
       this.tarefaSelecionada.players
     );
   }
 
   novoRound(): void {
-    this.onTaskDescription = true;
-    this.onTaskExecution = false;
+    this.howManyQuestionsLeft -= 1;
 
     this.moduloSelecionado = this.GameManager.getRandomModule();
     this.tarefaSelecionada = this.moduloSelecionado.useRandomTask();
+
+    this.onTaskDescription = true;
+    this.onTaskExecution = false;
+    this.onArtQuestion = false;
+
+    if (this.moduloSelecionado.name == "Artes") {
+      this.onTaskDescription = true;
+      this.onTaskExecution = false;
+      this.onArtQuestion = true;
+    }
 
     this.acertou = null;
   }
@@ -200,20 +221,65 @@ export default class Game extends Vue {
   }
 
   initTask(): void {
+    this.onArtQuestion = false;
     this.onTaskDescription = false;
     this.onTaskExecution = true;
     this.tarefaSelecionada.init();
   }
 
-  verificarResposta(alternativa: number) {
-    console.log(alternativa);
+  initArtTask(): void {
+    this.onTaskDescription = false;
+    this.onTaskExecution = false;
+    this.onArtQuestion = true;
+    this.tarefaSelecionada.init();
+  }
 
+  verificarResposta(alternativa: number) {
     if (this.tarefaSelecionada.verificarResposta(alternativa) == "correta") {
       this.acertou = true;
-      console.log("acertou");
     } else {
       this.acertou = false;
-      console.log("errou");
+    }
+  }
+
+  @Watch("howManyQuestionsLeft", { immediate: true, deep: true })
+  onNoMoreQuestions(val: number, oldVal: number) {
+    if (val <= 0) {
+      this.$router.push("fim");
+    }
+  }
+
+  @Watch("tarefaSelecionada", { immediate: true, deep: true }) onEndOfGame(
+    val: Module,
+    oldVal: Module
+  ) {
+    if (!val) {
+      this.$router.push("fim");
+    }
+  }
+
+  @Watch("timeLeft", { immediate: true, deep: true }) onTimeEnded(
+    val: number,
+    oldVal: number
+  ) {
+    if (val == 0) {
+      this.moduloSelecionado = this.GameManager.getRandomModule();
+      this.tarefaSelecionada = this.moduloSelecionado.useRandomTask();
+
+      this.onArtQuestion = false;
+      this.onTaskDescription = true;
+      this.onTaskExecution = false;
+
+      if (this.moduloSelecionado.name == "Artes") {
+        this.onTaskDescription = true;
+        this.onTaskExecution = false;
+        this.onArtQuestion = true;
+        this.acertou = null;
+      }
+
+      this.jogadoresSelecionados = this.GameManager.getEnoughPlayers(
+        this.tarefaSelecionada.players
+      );
     }
   }
 }
@@ -332,5 +398,12 @@ $advice-font-color: rgba(209, 90, 90, 1);
 
 .what-perform {
   text-transform: capitalize;
+}
+
+.response-response {
+  min-height: 100px !important;
+  min-width: 100%;
+  background: rgba(139, 226, 226, 0.71);
+  border-radius: 15px;
 }
 </style>

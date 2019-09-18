@@ -1,21 +1,22 @@
-enum Categories {
-
-}
 
 abstract class Task {
     title!: string;
-    description!: string;
+    subtitle!: string;
 
     players!: number;
+
+    description!: string;
 
     category!: Array<string>;
     materials!: Array<string>;
 
-    constructor(title: string, players: number, description?: string, ) {
+    constructor(title: string, description: string, players: number, subtitle?: string, ) {
         this.title = title;
-        this.description = description || "";
+        this.subtitle = subtitle || "";
 
         this.players = players || 1;
+
+        this.description = description;
     }
 
     abstract init(): void;
@@ -26,8 +27,8 @@ abstract class TaskWithTime extends Task {
     counter!: number;
     taskCicle!: number;
 
-    constructor(title: string, time: number, players?: number, description?: string, ) {
-        super(title, players || 1, description);
+    constructor(title: string, description: string, time: number, players?: number, subtitle?: string, ) {
+        super(title, description, players || 1, subtitle);
         this.time = time;
         this.counter = this.time;
     }

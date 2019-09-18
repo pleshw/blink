@@ -103,7 +103,7 @@ export default class PlayerSelection extends Vue {
 
   redirectToModSelection() {
     this.$GameManager.players = this.players;
-    this.$router.push("modulos");
+    this.$router.replace("modulos");
   }
 }
 </script>

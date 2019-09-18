@@ -5,6 +5,7 @@ import HowTo from './views/HowTo.vue'
 import PlayerSelection from './views/PlayerSelection.vue'
 import ModSelection from './views/ModSelection.vue'
 import Game from './views/Game.vue'
+import Fim from './views/Fim.vue'
 
 Vue.use(Router)
 
@@ -35,6 +36,12 @@ export default new Router({
       path: '/game',
       name: 'game',
       component: Game,
+    },
+
+    {
+      path: '/fim',
+      name: 'fim',
+      component: Fim,
     },
     // {
     //   path: '/about',
