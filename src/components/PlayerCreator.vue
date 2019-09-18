@@ -20,12 +20,12 @@
             v-model="player.name"
             v-on:keyup.enter="makePlayer"
             type="text"
+            :autofocus="playerID == 1"
             autocomplete="off"
             autocorrect="off"
             autocapitalize="off"
             spellcheck="false"
             :tabindex="playerID"
-            @blur="makePlayer"
           />
         </div>
         <button
@@ -62,10 +62,6 @@ export default class PlayerCreator extends Vue {
     this.player.name = "@Jogador" + this.playerID;
     this.player.picture = this.img;
     this.player.id = this.playerID;
-
-    if (this.playerID === 1) {
-      this.player.confirmed = true;
-    }
   }
 
   @Emit("add-player")

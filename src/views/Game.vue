@@ -55,17 +55,23 @@
             :class="{'on': onTaskExecution, 'off': onTaskDescription}"
             class="task-screen row container-fluid centered justify-content-center mb-2"
           >
-            <div
-              class="row alternativas col-12"
-              v-for="(alternativa, index) in alternativas"
-              v-bind:key="index"
-            >
-              <StartButton
-                class="col-12"
-                @click.native="tarefaSelecionada.verificarResposta(alternativa)"
-                v-show="!(counter > 0)"
-                :title="alternativa"
-              ></StartButton>
+            <div class="row container-fluid centered justify-content-center mb-4">
+              <div
+                class="row alternativas col-12"
+                v-for="(alternativa, index) in alternativas"
+                v-bind:key="index"
+              >
+                <StartButton
+                  class="col-12"
+                  @click.native="verificarResposta(index)"
+                  :title="alternativa"
+                ></StartButton>
+              </div>
+            </div>
+            <div v-if="acertou" class="col-12 texto-correto">Você acertou</div>
+            <div v-if="acertou === false" class="col-12 texto-errado">Você errou</div>
+            <div v-if="acertou !== null" class="col-12 texto-errado">
+              <StartButton class="col-12" :title="'Proximo'" @click.native="novoRound"></StartButton>
             </div>
           </div>
         </div>
@@ -104,6 +110,8 @@ export default class Game extends Vue {
   onTaskDescription: boolean = true;
   onTaskExecution: boolean = false;
 
+  acertou: boolean | null = null;
+
   @Watch("tarefaSelecionada", { immediate: true, deep: true }) onEndOfGame(
     val: Module,
     oldVal: Module
@@ -120,6 +128,7 @@ export default class Game extends Vue {
     if (val == 0) {
       this.onTaskDescription = true;
       this.onTaskExecution = false;
+
       this.moduloSelecionado = this.GameManager.getRandomModule();
       this.tarefaSelecionada = this.moduloSelecionado.useRandomTask();
 
@@ -128,6 +137,8 @@ export default class Game extends Vue {
       );
     }
   }
+
+  // n - 1/2
 
   sortingGif: File = require("@/assets/randomizing-questions.gif");
   teatroImg: File = require("@/assets/modulo-teatro-cores.png");
@@ -140,12 +151,23 @@ export default class Game extends Vue {
     this.GameManager = this.$GameManager;
     this.modules = this.GameManager.modules;
     this.players = this.GameManager.players;
+
     this.moduloSelecionado = this.GameManager.getRandomModule();
     this.tarefaSelecionada = this.moduloSelecionado.useRandomTask();
 
     this.jogadoresSelecionados = this.GameManager.getEnoughPlayers(
       this.tarefaSelecionada.players
     );
+  }
+
+  novoRound(): void {
+    this.onTaskDescription = true;
+    this.onTaskExecution = false;
+
+    this.moduloSelecionado = this.GameManager.getRandomModule();
+    this.tarefaSelecionada = this.moduloSelecionado.useRandomTask();
+
+    this.acertou = null;
   }
 
   get tarefaAtiva(): boolean {
@@ -182,6 +204,18 @@ export default class Game extends Vue {
     this.onTaskExecution = true;
     this.tarefaSelecionada.init();
   }
+
+  verificarResposta(alternativa: number) {
+    console.log(alternativa);
+
+    if (this.tarefaSelecionada.verificarResposta(alternativa) == "correta") {
+      this.acertou = true;
+      console.log("acertou");
+    } else {
+      this.acertou = false;
+      console.log("errou");
+    }
+  }
 }
 </script>
 
@@ -194,6 +228,22 @@ $sub-font-color: rgba(252, 235, 134, 1);
 $card-bg-color: rgba(249, 162, 162, 1);
 $active-card-bg-color: rgba(239, 115, 115, 1);
 $advice-font-color: rgba(209, 90, 90, 1);
+
+.correto {
+  background-color: $acertou !important;
+}
+
+.errado {
+  background-color: $errou !important;
+}
+
+.texto-correto {
+  color: $acertou !important;
+}
+
+.texto-errado {
+  color: $errou !important;
+}
 
 .task-screen,
 .desc-screen {

@@ -26,9 +26,9 @@ class Mimica extends TaskWithTime {
         this.correta = this.alternativas[this.idCorreta];
     }
 
-    verificarResposta(resposta: number) {
+    verificarResposta(resposta: number): string {
         this.stopTimer();
-        return (resposta == this.idCorreta);
+        return (resposta == this.idCorreta) ? "correta" : "incorreta";
     }
 }
 let MimicaRoedores: Mimica = new Mimica(roedores);
