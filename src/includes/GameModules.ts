@@ -1,5 +1,5 @@
 import { TodasAsMimicas, TodasAsGerais, TodasAsArtes } from '@/includes/GameTasks'
-import { Module } from '@/includes/Module'
+import { Modulo } from '@/includes/Modulo'
 
 
 let Artes = new Module("Artes", "Prepare a tesoura, a cola, a massinha de modelar, o papel, o lápis, a caneta, o pincel, o quadro, a tinta guache...", require('@/assets/modulo-artes.png'), ...TodasAsArtes);

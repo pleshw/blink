@@ -87,10 +87,6 @@ export default class PlayerSelection extends Vue {
   constructor() {
     super();
     this.players = new Map<number, Player>();
-    this.players.set(
-      1,
-      new Player("@Jogador1", 1, require("@/assets/user-triangle.png"))
-    );
   }
 
   addPlayerToGame(p: Player): void {

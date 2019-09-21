@@ -1,9 +1,9 @@
 //// FILTRAR TAREFAS QUE EXIGEM MAIS JOGADORES
 
 
-import { Player } from '@/includes/Player'
-import { Task, TaskWithTime } from '@/includes/Task'
-import { Module } from '@/includes/Module'
+import { Player } from '@/includes/Jogador'
+import { Task, TaskWithTime } from '@/includes/Atividade'
+import { Module } from '@/includes/Modulo'
 import { Stack } from '@/includes/Stack'
 
 function getRandomKey(collection: Map<any, any> | Set<any>) {

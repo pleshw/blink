@@ -189,6 +189,10 @@ export default class Game extends Vue {
     }
 
     this.acertou = null;
+
+    this.jogadoresSelecionados = this.GameManager.getEnoughPlayers(
+      this.tarefaSelecionada.players
+    );
   }
 
   get tarefaAtiva(): boolean {
