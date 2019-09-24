@@ -33,7 +33,7 @@ namespace Template {
         ["11", "9", "5", "7"]
         , 4);
 
-    export let q9 = new Trivia("Quanto tempo a luz do Sol demora para chegar à Terra?",
+    export let q9 = new Trivia("Quanto _time a luz do Sol demora para chegar à Terra?",
         ["24 horas", "8 minutos", "12horas", "1 segundo"]
         , 2);
 

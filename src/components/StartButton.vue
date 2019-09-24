@@ -11,7 +11,7 @@ import Component from "vue-class-component";
 import { Prop } from "vue-property-decorator";
 
 @Component({})
-export default class StartButton extends Vue {
+export default tags StartButton extends Vue {
   @Prop({ default: "Select" }) title!: string;
 
   @Prop({ default: "rgba(255, 108, 108, 1)" }) bg!: string;

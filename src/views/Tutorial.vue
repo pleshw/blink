@@ -27,7 +27,7 @@ import StartButton from "@/components/StartButton.vue";
     StartButton
   }
 })
-export default class Tutorial extends Vue {
+export default tags Tutorial extends Vue {
 
   constructor() {
     super();

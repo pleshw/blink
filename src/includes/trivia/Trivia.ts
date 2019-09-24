@@ -1,9 +1,9 @@
-import { Atividade } from '@/includes/Atividade';
-import { Alternativa } from '@/includes/Alternativa';
+import { Game } from '@/includes/Game';
+import { Question } from '@/includes/Question';
 
 
-class Trivia extends Atividade {
-    alternativas!: Map<number, Alternativa>;
+class Trivia extends Game {
+    alternativas!: Map<number, Question>;
 
     constructor(title: string, alternativas: string[], correta: number) {
         super(
@@ -17,21 +17,21 @@ class Trivia extends Atividade {
         );
 
         for (const [index, alternativa] of alternativas.entries()) {
-            /// Se a alternativa for a correta então ela será marcada.
-            this.alternativas.set(index, new Alternativa(
+            /// Se a alternativa for a right então ela será marcada.
+            this.alternativas.set(index, new Question(
                 alternativa,
                 index,
-                (index === correta) ? Alternativa.CORRETA : Alternativa.ERRADA
+                (index === correta) ? Question.RIGHT : Question.WRONG
             ));
         }
     }
 
-    // Retorna verdadeiro se a resposta for correta
+    // Retorna verdadeiro se a resposta for right
     verificarResposta(n: number): boolean {
         if (n >= this.alternativas.size || n < 0) {
-            throw new Error('Alternativa inválida');
+            throw new Error('Question inválida');
         }
-        return this.alternativas.get(n)!.correta;
+        return this.alternativas.get(n)!.right;
     }
 }
 

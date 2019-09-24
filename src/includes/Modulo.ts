@@ -1,4 +1,4 @@
-import {Atividade, Iniciador} from '@/includes/Atividade'
+import {Game, GameStarter} from '@/includes/Game'
 import "@/includes/utils/Random";
 
 /**
@@ -12,15 +12,15 @@ class Modulo {
     _nome!: string;
     _descrição!: string;
 
-    _atividades!: Set<Atividade>;
+    _atividades!: Set<Game>;
 
     _imagem!: File;
 
-    constructor(nome: string, descrição: string, imagem: File, ...atividades: Atividade[]) {
+    constructor(nome: string, descrição: string, imagem: File, ...atividades: Game[]) {
         this._nome = nome;
         this._descrição = descrição;
         this._imagem = imagem;
-        this._atividades = new Set<Atividade>([...atividades]);
+        this._atividades = new Set<Game>([...atividades]);
     }
 
     public get nome(): string {
@@ -35,7 +35,7 @@ class Modulo {
         return this._imagem;
     }
 
-    public get atividades(): Atividade[] {
+    public get atividades(): Game[] {
         return Array.from(this._atividades);
     }
 
@@ -43,7 +43,7 @@ class Modulo {
     get categorias(): string[] {
         let categorias = new Array<string>();
         this.atividades.forEach(atividade => {
-            categorias.concat(atividade.categorias);
+            categorias.concat(atividade.tags);
         });
 
         return Array.from(new Set<string>(...categorias));
@@ -53,7 +53,7 @@ class Modulo {
         return this._atividades.size === 0;
     }
 
-    public consumirAtividade(): Atividade | null {
+    public consumirAtividade(): Game | null {
         if (this.vazio())
             return null;
 

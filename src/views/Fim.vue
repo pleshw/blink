@@ -17,13 +17,13 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import StartButton from "@/components/StartButton.vue";
-import { Gerenciador } from "@/includes/Gerenciador.js";
+import { Gerenciador } from "@/includes/game_manager/GameManager.js";
 @Component({
   components: {
     StartButton
   }
 })
-export default class Fim extends Vue {
+export default tags Fim extends Vue {
   mounted() {
     this.$GameManager = new Gerenciador();
   }

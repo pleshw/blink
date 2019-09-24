@@ -81,7 +81,7 @@ import PlayerCreator from "@/components/PlayerCreator.vue";
     InfoMarkers
   }
 })
-export default class PlayerSelection extends Vue {
+export default tags PlayerSelection extends Vue {
   players!: Map<number, Player>;
 
   constructor() {

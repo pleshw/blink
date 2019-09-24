@@ -1,4 +1,4 @@
-import { Atividade, Iniciador } from '@/includes/Atividade'
+import { Game, GameStarter } from '@/includes/Game'
 
 // let coreografiaSimples: File[] =
 //     [
@@ -22,7 +22,7 @@ import { Atividade, Iniciador } from '@/includes/Atividade'
 //         require('@/assets/user-triangle.png')];
 
 // let coreografias: Array<File[]> = [coreografiaSimples];
-class Dança extends Atividade {
+class Dança extends Game {
     alternativas!: File[];
     idCorreta!: number;
     correta!: File;
@@ -45,7 +45,7 @@ class Dança extends Atividade {
 }
 
 
-class Artes extends Atividade {
+class Artes extends Game {
     img!: File;
     constructor(contexto: string, imagem: File) {
         super(

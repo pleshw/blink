@@ -10,7 +10,7 @@
         <!-- <img src="@/assets/logo.png" alt srcset /> -->
       </div>
 
-      <h3 class="counter" v-show="counter > 0">{{counter}}</h3>
+      <h3 class="counter" v-show="counter > 0">{{_counter}}</h3>
 
       <div class="row justify-content-center" style>
         <img :src="require('@/assets/randomizing-questions.gif')" class="img-fluid col-3" alt />
@@ -48,7 +48,7 @@ import StartButton from "@/components/StartButton.vue";
     StartButton
   }
 })
-export default class Home extends Vue {
+export default tags Home extends Vue {
 
 
   constructor() {

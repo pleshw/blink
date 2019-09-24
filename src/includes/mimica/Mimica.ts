@@ -1,11 +1,11 @@
-import { Atividade } from '@/includes/Atividade'
-import { Alternativa } from '@/includes/Alternativa'
+import { Game } from '@/includes/Game'
+import { Question } from '@/includes/Question'
 import { getRandomArbitrary, getRandomExcept } from '@/includes/utils/Random'
 
-class Mimica extends Atividade {
+class Mimica extends Game {
 
-    alternativas!: Array<Alternativa>; // todas as alternativas
-    imita!: Alternativa; // quem o jogador deve imitar
+    alternativas!: Array<Question>; // todas as alternativas
+    imita!: Question; // quem o jogador deve imitar
     usadas!: Array<number>; // alternativas que já foram utilizadas
 
     constructor(alternativas: Array<string>) {
@@ -22,10 +22,10 @@ class Mimica extends Atividade {
         // Instanciando todas as alternativas
         alternativas.forEach((element, index) => {
             this.alternativas.push(
-                new Alternativa(
+                new Question(
                     element,
                     index,
-                    Alternativa.ERRADA
+                    Question.WRONG
                 )
             );
         });
@@ -44,8 +44,8 @@ class Mimica extends Atividade {
 
         this.imita = this.alternativas[n_alternativa];
 
-        this.imita.marcarCorreta();
-        this.imita.marcarUsada();
+        this.imita.makeRight();
+        this.imita.use();
     }
 }
 

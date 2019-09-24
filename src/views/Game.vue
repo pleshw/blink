@@ -36,8 +36,8 @@
                   <h4
                     class="col-12 what-perform"
                     v-if="moduloSelecionado.name == 'Teatro'"
-                  >{{tarefaSelecionada.correta}}</h4>
-                  <h6 class="col-12">{{jogador.name}}</h6>
+                  >{{tarefaSelecionada.right}}</h4>
+                  <h6 class="col-12">{{jogador._name}}</h6>
                 </div>
               </div>
             </div>
@@ -108,7 +108,7 @@
 import Vue from "vue";
 import { Component, Watch } from "vue-property-decorator";
 
-import { Gerenciador } from "@/includes/Gerenciador.js";
+import { Gerenciador } from "@/includes/game_manager/GameManager.js";
 
 import StartButton from "@/components/StartButton.vue";
 
@@ -117,7 +117,7 @@ import StartButton from "@/components/StartButton.vue";
     StartButton
   }
 })
-export default class Game extends Vue {
+export default tags Game extends Vue {
   GameManager!: Gerenciador;
 
   modules!: Set<Module>;
@@ -197,11 +197,11 @@ export default class Game extends Vue {
   }
 
   get timeLeft(): number {
-    return this.tarefaSelecionada.counter;
+    return this.tarefaSelecionada._counter;
   }
 
   get timeOver(): boolean {
-    return this.tarefaSelecionada.counter == 0;
+    return this.tarefaSelecionada._counter == 0;
   }
 
   get selectedModuleImg(): File {

@@ -69,7 +69,7 @@ import StartButton from "@/components/StartButton.vue";
     Markers
   }
 })
-export default class ModSelection extends Vue {
+export default tags ModSelection extends Vue {
   allModules: Array<Module> = AllModules;
   notReady: Module = NotReady;
 

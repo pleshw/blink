@@ -15,7 +15,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { Prop } from "vue-property-decorator";
 
 @Component({})
-export default class Markers extends Vue {
+export default tags Markers extends Vue {
   @Prop({}) length!: number;
   @Prop({}) step!: number;
 }

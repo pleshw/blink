@@ -17,7 +17,7 @@
             class="text-muted"
             :class="{'form-control-plaintext': player.confirmed, 'form-control dashed-input': !player.confirmed}"
             :readonly="player.confirmed"
-            v-model="player.name"
+            v-model="player._name"
             v-on:keyup.enter="makePlayer"
             type="text"
             :autofocus="playerID == 1"
@@ -48,7 +48,7 @@ import { Player } from "@/includes/Player.ts";
 import { Prop } from "vue-property-decorator";
 
 @Component({})
-export default class PlayerCreator extends Vue {
+export default tags PlayerCreator extends Vue {
   @Prop({})
   playerID!: number;
 
@@ -59,7 +59,7 @@ export default class PlayerCreator extends Vue {
 
   constructor() {
     super();
-    this.player.name = "@Jogador" + this.playerID;
+    this.player._name = "@Player" + this.playerID;
     this.player.picture = this.img;
     this.player.id = this.playerID;
   }
