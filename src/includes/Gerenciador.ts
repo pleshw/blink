@@ -8,12 +8,12 @@ import "@/includes/utils/Random";
 import {Stack} from '@/includes/utils/Stack'
 
 class GerenciadorDeJogadores {}
-class GerenciadorDeAtividades {}
+class GerenciadorDeRodadas {}
 class GerenciadorDeMódulos {}
 
 class Gerenciador {
     private gerenciador_de_jogadores = new GerenciadorDeJogadores();
-    private gerenciador_de_atividades = new GerenciadorDeAtividades();
+    private gerenciador_de_rodadas = new GerenciadorDeRodadas();
     private gerenciador_de_módulos = new GerenciadorDeMódulos();
 
     private _jogadores: Array<Jogador> = new Array<Jogador>();
