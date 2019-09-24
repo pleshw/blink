@@ -24,7 +24,6 @@ $advice-font-color: rgba(209, 90, 90, 1);
     $bg-player-selector 7%,
     rgba(140, 222, 224, 0.4) 95%
   );
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
@@ -33,7 +32,6 @@ $advice-font-color: rgba(209, 90, 90, 1);
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
   font-family: "Varela Round", sans-serif;
   user-select: none !important;
 }

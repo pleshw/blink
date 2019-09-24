@@ -17,7 +17,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import StartButton from "@/components/StartButton.vue";
-import { GameManager } from "@/includes/GameManager.ts";
+import { Gerenciador } from "@/includes/Gerenciador.js";
 @Component({
   components: {
     StartButton
@@ -25,7 +25,7 @@ import { GameManager } from "@/includes/GameManager.ts";
 })
 export default class Fim extends Vue {
   mounted() {
-    this.$GameManager = new GameManager();
+    this.$GameManager = new Gerenciador();
   }
 
   playAgain(): void {

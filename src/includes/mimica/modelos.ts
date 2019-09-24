@@ -1,5 +1,6 @@
 import { Mimica } from '@/includes/mimica/Mimica';
 
+
 let Felinos: string[] = ["um gato", "um leão", "um tigre", "uma onça"];
 let Roedores: string[] = ["um coelho", "um rato", "uma capivara", "um esquilo"];
 let Aves: string[] = ["um pardal", "uma calopsita", "um periquito", "uma arara"];
@@ -17,8 +18,9 @@ namespace Template {
     export let MimicaProfissoes: Mimica = new Mimica(Profissoes);
     export let MimicaProfissoes2: Mimica = new Mimica(Profissoes2);
     export let MimicaObjetos: Mimica = new Mimica(Objetos);
-    
+
     export let TodasAsMimicas = [MimicaRoedores, MimicaFelinos, MimicaAves, MimicaCaninos, MimicaProfissoes, MimicaProfissoes2, MimicaObjetos];
 }
+
 
 export { Template };

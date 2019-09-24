@@ -1,6 +1,8 @@
 <template>
   <div class="row justify-content-center container-fluid">
     <img :src="require('@/assets/waves-bottom-players.png')" class="background-wave" alt />
+
+
     <div class="col-11 how-to-row" style=" z-index: 300;">
       <img class="img-fluid" :src="require('@/assets/how-to.png')" />
     </div>
@@ -25,19 +27,14 @@ import StartButton from "@/components/StartButton.vue";
     StartButton
   }
 })
-export default class HowTo extends Vue {
-  @Watch("$route", { immediate: true, deep: true })
-  onUrlChange(newVal: any, oldVal: any) {
-    console.log({ newVal });
-  }
+export default class Tutorial extends Vue {
 
   constructor() {
     super();
-    this.$router.go(0);
   }
 
   redirectToPlayerSelection() {
-    this.$router.push("jogadores");
+    this.$router.push("seleção-de-jogadores");
   }
 }
 </script>

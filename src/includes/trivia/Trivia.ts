@@ -1,20 +1,6 @@
 import { Atividade } from '@/includes/Atividade';
+import { Alternativa } from '@/includes/Alternativa';
 
-class Alternativa {
-    public static ERRADA = 0;
-    public static CORRETA = 1;
-    public static USADA = 2;
-
-    public id!: number;
-    public flag!: number;
-    public conteudo!: string;
-
-    constructor(conteudo: string, id: number, flag: number) {
-        this.conteudo = conteudo;
-        this.id = id;
-        this.flag = Alternativa.ERRADA;
-    }
-}
 
 class Trivia extends Atividade {
     alternativas!: Map<number, Alternativa>;
@@ -40,11 +26,12 @@ class Trivia extends Atividade {
         }
     }
 
+    // Retorna verdadeiro se a resposta for correta
     verificarResposta(n: number): boolean {
         if (n >= this.alternativas.size || n < 0) {
             throw new Error('Alternativa inválida');
         }
-        return this.alternativas.get(n)!.flag === Alternativa.CORRETA;
+        return this.alternativas.get(n)!.correta;
     }
 }
 

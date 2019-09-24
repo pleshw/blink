@@ -108,10 +108,7 @@
 import Vue from "vue";
 import { Component, Watch } from "vue-property-decorator";
 
-import { Player } from "@/includes/Player.ts";
-import { Task } from "@/includes/Task.ts";
-import { Module } from "@/includes/Module.ts";
-import { GameManager } from "@/includes/GameManager.ts";
+import { Gerenciador } from "@/includes/Gerenciador.js";
 
 import StartButton from "@/components/StartButton.vue";
 
@@ -121,7 +118,7 @@ import StartButton from "@/components/StartButton.vue";
   }
 })
 export default class Game extends Vue {
-  GameManager!: GameManager;
+  GameManager!: Gerenciador;
 
   modules!: Set<Module>;
   players!: Map<number, Player>;

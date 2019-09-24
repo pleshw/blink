@@ -1,5 +1,6 @@
 <template>
-  <div class="home justify-content-center row">
+  <div class="row justify-content-center container-fluid">
+
     <div id="logo-container" class="center-align">
       <img src="@/assets/logo.png" class="img-fluid" />
     </div>
@@ -48,28 +49,14 @@ import StartButton from "@/components/StartButton.vue";
   }
 })
 export default class Home extends Vue {
-  logoEyes: string = ":";
-  isLogoBlinking: boolean = false;
-  counter: number = 0;
+
 
   constructor() {
     super();
-
-    // let m = new Mimica();
-    // console.log(m.title);
-    // console.log("Você pode ser: " + m.canBe);
-    // console.log("Você é: " + m.reallyIs);
-    // m.init();
-
-    // this.d = new Dance();
-    // console.log(this.d.title);
-    // console.log("Você pode ser: " + this.d.canBe);
-    // console.log("Você é: " + this.d.reallyIs);
-    // d.init();
   }
 
   redirectToGameMenu() {
-    this.$router.push("ajuda");
+    this.$router.push("tutorial");
   }
 }
 </script>

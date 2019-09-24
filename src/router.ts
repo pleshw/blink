@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import HowTo from './views/HowTo.vue'
+import Tutorial from './views/Tutorial.vue'
 import PlayerSelection from './views/PlayerSelection.vue'
 import ModSelection from './views/ModSelection.vue'
 import Game from './views/Game.vue'
@@ -18,17 +18,17 @@ export default new Router({
       name: 'home',
       component: Home
     }, {
-      path: '/ajuda',
-      name: 'ajuda',
-      component: HowTo,
+      path: '/tutorial',
+      name: 'tutorial',
+      component: Tutorial,
     },
     {
-      path: '/jogadores',
-      name: 'jogadores',
+      path: '/seleção-de-jogadores',
+      name: 'seleção-de-jogadores',
       component: PlayerSelection
     }, {
-      path: '/modulos',
-      name: 'modulos',
+      path: '/seleção-de-módulos',
+      name: 'seleção-de-módulos',
       component: ModSelection,
     },
 

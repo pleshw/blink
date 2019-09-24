@@ -60,13 +60,13 @@ import { Component, Vue } from "vue-property-decorator";
 import { Module, AllModules, NotReady } from "@/includes/GameModules.ts";
 
 // Components
-import InfoMarkers from "@/components/InfoMarkers.vue";
+import Markers from "@/components/Markers.vue";
 import StartButton from "@/components/StartButton.vue";
 
 @Component({
   components: {
     StartButton,
-    InfoMarkers
+    Markers
   }
 })
 export default class ModSelection extends Vue {

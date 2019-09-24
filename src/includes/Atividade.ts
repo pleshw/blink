@@ -1,22 +1,24 @@
-/** 
+/**
  * Uma atividade representa uma tarefa a ser feita com um tempo para sua conclusão
- * 
+ *
  * O iniciador é a classe responsável por iniciar uma atividade.
  * Provendo funções para que a execução da tarefa seja iniciada, parada, pausada ou reiniciada
  */
 
-abstract class Atividade {
-    private _nome!: string;
+import {Cronometro} from '@/includes/utils/Cronometro.js'
 
-    private _titulo!: string;
-    private _subtitulo!: string;
-    private _descrição!: string;
+abstract class Atividade {
+    private readonly _nome!: string;
+
+    private readonly _titulo!: string;
+    private readonly _subtitulo!: string;
+    private readonly _descrição!: string;
 
     private _tempo!: number; // Em segundos.
 
-    private _categorias!: Set<string>;
+    private readonly _categorias!: Set<string>;
 
-    private _numero_de_jogadores!: number;
+    private readonly _numero_de_jogadores!: number;
 
 
     constructor(
@@ -36,56 +38,75 @@ abstract class Atividade {
         this._numero_de_jogadores = numero_de_jogadores;
     }
 
-    get nome(): string { return this._nome; }
-    get titulo(): string { return this._titulo; }
-    get subtitulo(): string { return this._subtitulo; }
-    get descrição(): string { return this._descrição; }
+    public get nome(): string {
+        return this._nome;
+    }
 
-    get tempo(): number { return this._tempo; }
-    set tempo(t: number) { this._tempo = t; }
+    public get titulo(): string {
+        return this._titulo;
+    }
 
-    get categorias(): string[] { return Array.from(this._categorias) }
-    get numero_de_jogadores(): number { return this._numero_de_jogadores; }
+    public get subtitulo(): string {
+        return this._subtitulo;
+    }
+
+    public get descrição(): string {
+        return this._descrição;
+    }
+
+    public get tempo(): number {
+        return this._tempo;
+    }
+
+    public set tempo(t: number) {
+        this._tempo = t;
+    }
+
+    public get categorias(): string[] {
+        return Array.from(this._categorias)
+    }
+
+    public get numero_de_jogadores(): number {
+        return this._numero_de_jogadores;
+    }
 }
 
-class Iniciador {
-    private _tempo!: number;
-    private _contador: number = 0;
-
-    private _temporizador!: number;
+class Iniciador extends Cronometro {
+    nome_da_atividade!: string;
 
     constructor(atividade: Atividade) {
-        this._tempo = atividade.tempo;
+        super(atividade.tempo);
+        this.nome_da_atividade = atividade.nome;
+        this.tempo = atividade.tempo;
     }
 
-    public get contador(): number {
-        return this._contador;
-    }
-
-    public iniciar(): void {
-        if (this._contador == 0) this._contador = this._tempo;
-        this._temporizador = setInterval(() => {
-            if (this._contador <= 0) {
-                this.parar();
-                return;
-            }
-            this._contador -= 1;
-        }, 1000);
-    }
-
-    public parar(): void {
-        this.pausar();
-        this._contador = 0;
-    }
-
-    public pausar(): void {
-        clearInterval(this._temporizador);
+    public iniciar() {
+        super.iniciar();
+        console.log(this.nome_da_atividade + ' foi iniciada.');
     }
 
     public reiniciar(): void {
-        this._contador = this._tempo;
-        this.iniciar();
+        super.reiniciar();
+        console.log(this.nome_da_atividade + ' foi reiniciada.');
+    }
+
+    public parar(): void {
+        super.parar();
+        console.log(this.nome_da_atividade + ' foi parada.');
+    }
+
+    public pausar(): void {
+        super.pausar();
+        console.log(this.nome_da_atividade + ' foi pausada.');
+    }
+
+    public get tempo_limite(): number {
+        return this.tempo;
+    }
+
+    public get tempo_atual(): number {
+        return this.contador;
     }
 }
 
-export { Atividade, Iniciador };
+export {Atividade, Iniciador};
