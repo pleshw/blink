@@ -1,8 +1,8 @@
-import { Game } from '@/includes/Game';
+import { Task } from '@/includes/Task';
 import { Question } from '@/includes/Question';
 
 
-class Trivia extends Game {
+class Trivia extends Task {
     alternativas!: Map<number, Question>;
 
     constructor(title: string, alternativas: string[], correta: number) {

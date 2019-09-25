@@ -1,4 +1,4 @@
-import {Game, GameStarter} from '@/includes/Game'
+import {Task} from '@/includes/Task'
 import "@/includes/utils/Random";
 
 /**
@@ -12,15 +12,15 @@ class Module {
     _name!: string;
     _description!: string;
 
-    _tasks!: Set<Game>;
+    _tasks!: Set<Task>;
 
     _img!: File;
 
-    constructor(nome: string, description: string, img: File, ...tasks: Game[]) {
+    constructor(nome: string, description: string, img: File, ...tasks: Task[]) {
         this._name = nome;
         this._description = description;
         this._img = img;
-        this._tasks = new Set<Game>([...tasks]);
+        this._tasks = new Set<Task>([...tasks]);
     }
 
     public get name(): string {
@@ -35,7 +35,7 @@ class Module {
         return this._img;
     }
 
-    public get tasks(): Game[] {
+    public get tasks(): Task[] {
         return Array.from(this._tasks);
     }
 
@@ -53,16 +53,15 @@ class Module {
         return this._tasks.size === 0;
     }
 
-    public consumirAtividade(): Game | null {
-        if (this.isEmpty())
-            return null;
+    public popTask(t: Task): Task | boolean {
+        if (this.isEmpty() || !this.contains(t)) return false;
 
-        let index: any = this.tasks.randomIndex();
-        let result = this.tasks[index];
+        this._tasks.delete(t);
+        return t;
+    }
 
-        this._tasks.delete(result);
-
-        return result;
+    public contains(t: Task): boolean {
+        return this._tasks.has(t);
     }
 }
 

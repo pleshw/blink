@@ -1,8 +1,8 @@
-import { Game } from '@/includes/Game'
+import { Task } from '@/includes/Task'
 import { Question } from '@/includes/Question'
 import { getRandomArbitrary, getRandomExcept } from '@/includes/utils/Random'
 
-class Mimica extends Game {
+class Mimica extends Task {
 
     alternativas!: Array<Question>; // todas as alternativas
     imita!: Question; // quem o jogador deve imitar

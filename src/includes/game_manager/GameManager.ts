@@ -2,7 +2,7 @@
 
 
 import {Player} from '@/includes/Player'
-import {Game} from '@/includes/Game'
+import {Task} from '@/includes/Task'
 import {Module} from '@/includes/Module'
 import "@/includes/utils/Random";
 import {Stack} from '@/includes/utils/Stack'
@@ -19,7 +19,7 @@ class GameManager {
 
     private _modules: Set<Module> = new Set<Module>();
 
-    private _rounds: Stack<Game> = new Stack<Game>();
+    private _rounds: Stack<Task> = new Stack<Task>();
 
 
     set players(value: Array<Player>) {

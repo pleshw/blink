@@ -61,7 +61,7 @@ namespace Template {
         ["draco malfoy", "basilisco", "voldermort", "hagrid"]
         , 3);
 
-    export let q15 = new Trivia("Quantas temporadas tem a série da HBO 'Game of Thrones'?",
+    export let q15 = new Trivia("Quantas temporadas tem a série da HBO 'Task of Thrones'?",
         ["8", "7", "4", "9"]
         , 1);
 

@@ -1,13 +1,13 @@
 /**
- * Um Game representa uma tarefa a ser feita com um _time para sua conclusão
+ * Um Task representa uma tarefa a ser feita com um _time para sua conclusão
  *
- * O iniciador é a classe responsável por init um Game.
+ * O iniciador é a classe responsável por init um Task.
  * Provendo funções para que a execução da tarefa seja iniciada, parada, pausada ou reiniciada
  */
 
 import {Timer} from '@/includes/utils/Timer.js'
 
-abstract class Game {
+abstract class Task {
     private readonly _name!: string;
 
     private readonly _title!: string;
@@ -74,7 +74,7 @@ abstract class Game {
 class GameStarter extends Timer {
     gameName!: string;
 
-    constructor(game: Game) {
+    constructor(game: Task) {
         super(game.time);
         this.gameName = game.name;
         this._time = game.time;
@@ -109,4 +109,4 @@ class GameStarter extends Timer {
     }
 }
 
-export {Game, GameStarter};
+export {Task, GameStarter};

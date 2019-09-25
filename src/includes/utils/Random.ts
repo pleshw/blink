@@ -6,6 +6,10 @@ declare global {
 
         popRandom(): T;
     }
+
+    interface Set<T> {
+        random(): T;
+    }
 }
 
 Array.prototype.random = function () {
@@ -21,6 +25,10 @@ Array.prototype.popRandom = function () {
     let result = this[index];
     this.splice(index, 1);
     return result;
+};
+
+Set.prototype.random = function () {
+    return Array.from(this).random();
 };
 
 function getRandom(): number {

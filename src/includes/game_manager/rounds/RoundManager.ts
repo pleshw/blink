@@ -12,16 +12,17 @@ import {Question} from "@/includes/Question";
 class Round {
     protected index!: number;
 
-    private question!: Question | null;
+    private question!: Question;
 
-    constructor(q?: Question) {
-        this.question = q || null;
+    constructor(q: Question) {
+        this.question = q;
     }
 
-    public setQuestion(): void {
+    public setQuestion(q: Question): void {
+        this.question = q;
     }
 
-    public  getQuestion(): Question | null{
+    public getQuestion(): Question {
         return this.question;
     }
 }
@@ -43,20 +44,29 @@ class RoundManager {
     }
 
     pop(): Round {
-        return new Round();
+        return <Round> this.router.pop();
     }
 
     next(): void {
+        if (this.isLastRound())
+            return;
+
+        this.now += 1;
     }
 
     prev(): void {
+        if (this.isFirstRound())
+            return;
+
+        this.now -= 1;
     }
 
-    goTo(): void {
+    goTo(n: number): void {
+        this.now = n;
     }
 
-    getQuestion(): Question | null {
-        return this.router[this.now].getQuestion();
+    getQuestion(): Question {
+        return <Question>this.router[this.now].getQuestion();
     }
 }
 
