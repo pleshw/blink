@@ -10,7 +10,7 @@ class Mimica extends Game {
 
     constructor(alternativas: Array<string>) {
         super(
-            "mimica", // Nome
+            "mimic", // Nome
             "Você imita os outros acertam!!!", // Titulo
             "Não pode fazer barulho...", // Subtitulo
             "Ele pode ser qualquer uma das opções abaixo.", // Descrição

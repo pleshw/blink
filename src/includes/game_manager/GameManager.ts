@@ -3,12 +3,12 @@
 
 import {Player} from '@/includes/Player'
 import {Game} from '@/includes/Game'
-import {Modulo} from '@/includes/Modulo'
+import {Module} from '@/includes/Module'
 import "@/includes/utils/Random";
 import {Stack} from '@/includes/utils/Stack'
-import {PlayerManager} from "@/includes/game_manager/PlayerManager";
-import {ModuleManager} from "@/includes/game_manager/ModuleManager";
-import {RoundManager} from "@/includes/game_manager/RoundManager";
+import {PlayerManager} from "@/includes/game_manager/players/PlayerManager";
+import {ModuleManager} from "@/includes/game_manager/modules/ModuleManager";
+import {RoundManager} from "@/includes/game_manager/rounds/RoundManager";
 
 class GameManager {
     private playerManager = new PlayerManager();
@@ -17,7 +17,7 @@ class GameManager {
 
     private _players: Array<Player> = new Array<Player>();
 
-    private _modules: Set<Modulo> = new Set<Modulo>();
+    private _modules: Set<Module> = new Set<Module>();
 
     private _rounds: Stack<Game> = new Stack<Game>();
 
@@ -26,9 +26,9 @@ class GameManager {
         this._players = value;
     }
 
-    set modules(value: Set<Modulo> | Modulo[]) {
+    set modules(value: Set<Module> | Module[]) {
         if (Array.isArray(value))
-            this._modules = new Set<Modulo>(value);
+            this._modules = new Set<Module>(value);
         else
             this._modules = value;
     }
@@ -45,8 +45,8 @@ class GameManager {
         return result;
     }
 
-    get moduloAleatorio(): Modulo | null {
-        let arr: Modulo[] = [...this._modules];
+    get moduloAleatorio(): Module | null {
+        let arr: Module[] = [...this._modules];
 
         if (arr.length <= 0) {
             return null;

@@ -57,7 +57,7 @@ namespace Template {
         , 4);
 
 
-    export let q14 = new Trivia("Qual é o nome do principal vilão de Harry Potter?",
+    export let q14 = new Trivia("Qual é o name do principal vilão de Harry Potter?",
         ["draco malfoy", "basilisco", "voldermort", "hagrid"]
         , 3);
 

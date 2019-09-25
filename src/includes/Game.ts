@@ -16,7 +16,7 @@ abstract class Game {
 
     private _time!: number; // Em segundos.
 
-    private readonly _tags!: Set<string>; // categorias
+    private readonly _tags!: Set<string>; // tags
 
     private readonly _teamSize!: number;
 

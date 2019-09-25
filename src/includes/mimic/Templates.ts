@@ -1,4 +1,4 @@
-import { Mimica } from '@/includes/mimica/Mimica';
+import { Mimica } from '@/includes/mimic/Mimica';
 
 
 let Felinos: string[] = ["um gato", "um leão", "um tigre", "uma onça"];
